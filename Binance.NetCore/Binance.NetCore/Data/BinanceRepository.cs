@@ -17,7 +17,6 @@ namespace Binance.NetCore.Data
         private string baseUrl;
         private ApiInformation _apiInfo = null;
         private DateTimeHelper _dtHelper;
-        private FileRepository _fileRepo;
 
         /// <summary>
         /// Constructor for non-signed endpoints
@@ -48,9 +47,10 @@ namespace Binance.NetCore.Data
         /// <param name="configPath">String of path to configuration file</param>
         public BinanceRepository(string configPath)
         {
+            IFileRepository _fileRepo = new FileRepository();
+
             if(_fileRepo.FileExists(configPath))
             {
-                _fileRepo = new FileRepository();
                 _apiInfo = _fileRepo.GetDataFromFile<ApiInformation>(configPath);
                 LoadRepository();
             }
