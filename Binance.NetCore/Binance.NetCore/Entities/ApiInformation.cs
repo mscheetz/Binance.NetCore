@@ -8,6 +8,5 @@ namespace Binance.NetCore.Entities
     {
         public string apiKey { get; set; }
         public string apiSecret { get; set; }
-        public string extraValue { get; set; }
     }
 }

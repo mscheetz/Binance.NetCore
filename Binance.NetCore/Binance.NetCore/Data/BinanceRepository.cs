@@ -15,8 +15,9 @@ namespace Binance.NetCore.Data
         private Security security;
         private IRESTRepository _restRepo;
         private string baseUrl;
-        private ApiInformation _apiInfo;
+        private ApiInformation _apiInfo = null;
         private DateTimeHelper _dtHelper;
+        private FileRepository _fileRepo;
 
         /// <summary>
         /// Constructor for non-signed endpoints
@@ -33,7 +34,30 @@ namespace Binance.NetCore.Data
         /// <param name="apiSecret">Api secret</param>
         public BinanceRepository(string apiKey, string apiSecret)
         {
-            LoadRepository(apiKey, apiSecret);
+            _apiInfo = new ApiInformation
+            {
+                apiKey = apiKey,
+                apiSecret = apiSecret
+            };
+            LoadRepository();
+        }
+
+        /// <summary>
+        /// Constructor for signed endpoints
+        /// </summary>
+        /// <param name="configPath">String of path to configuration file</param>
+        public BinanceRepository(string configPath)
+        {
+            if(_fileRepo.FileExists(configPath))
+            {
+                _fileRepo = new FileRepository();
+                _apiInfo = _fileRepo.GetDataFromFile<ApiInformation>(configPath);
+                LoadRepository();
+            }
+            else
+            {
+                throw new Exception("Config file not found");
+            }
         }
 
         /// <summary>
@@ -47,11 +71,6 @@ namespace Binance.NetCore.Data
             _restRepo = new RESTRepository();
             baseUrl = "https://api.binance.com";
             _dtHelper = new DateTimeHelper();
-            _apiInfo = new ApiInformation
-            {
-                apiKey = key,
-                apiSecret = secret
-            };
         }
 
         /// <summary>
@@ -60,7 +79,7 @@ namespace Binance.NetCore.Data
         /// <returns>Boolean of validation</returns>
         public bool ValidateExchangeConfigured()
         {
-            var ready = string.IsNullOrEmpty(_apiInfo.apiKey) ? false : true;
+            var ready = _apiInfo == null || string.IsNullOrEmpty(_apiInfo.apiKey) ? false : true;
             if (!ready)
                 return false;
 
