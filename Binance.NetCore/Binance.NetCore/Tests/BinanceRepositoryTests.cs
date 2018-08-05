@@ -1,6 +1,7 @@
 using Binance.NetCore.Data;
 using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
+using FileRepository;
 using System;
 using System.Linq;
 using Xunit;
@@ -11,7 +12,6 @@ namespace Binance.NetCore.Tests
     {
         private ApiInformation _exchangeApi = null;
         private IBinanceRepository _repo;
-        private IFileRepository _fileRepo;
         private string configPath = "";
         private string apiKey = string.Empty;
         private string apiSecret = string.Empty;
@@ -21,7 +21,7 @@ namespace Binance.NetCore.Tests
         /// </summary>
         public BinanceRepositoryTests()
         {
-            _fileRepo = new FileRepository();
+            IFileRepository _fileRepo = new FileRepository.FileRepository();
             if(_fileRepo.FileExists(configPath))
             {
                 _exchangeApi = _fileRepo.GetDataFromFile<ApiInformation>(configPath);

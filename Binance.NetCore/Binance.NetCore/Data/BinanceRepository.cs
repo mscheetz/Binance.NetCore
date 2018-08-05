@@ -1,6 +1,8 @@
 ﻿using Binance.NetCore.Core;
 using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
+using DateTimeHelpers;
+using FileRepository;
 using RESTApiAccess;
 using RESTApiAccess.Interface;
 using System;
@@ -47,7 +49,7 @@ namespace Binance.NetCore.Data
         /// <param name="configPath">String of path to configuration file</param>
         public BinanceRepository(string configPath)
         {
-            IFileRepository _fileRepo = new FileRepository();
+            IFileRepository _fileRepo = new FileRepository.FileRepository();
 
             if(_fileRepo.FileExists(configPath))
             {
