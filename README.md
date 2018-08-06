@@ -41,7 +41,7 @@ var balance = binance.BinanceRepository.GetBalance().Result;
 ```
 
 Non-secure endpoints:  
-Get24HourStats() - Get 24hour stats for on or all trading pairs  
+Get24HourStats() - Get 24hour stats for one or all trading pairs  
 GetCryptos() - Get ticker for all pairs  
 GetOrderBook() - Get current order book for a trading pair  
 GetCandlestick() - Get charting candlesticks  
