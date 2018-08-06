@@ -28,7 +28,7 @@ create config file config.json
   "apiKey": "api-key",
   "apiSecret": "api-secret"
 }
-var kucoin = new BinanceClient("/path-to/config.json");
+var binance = new BinanceClient("/path-to/config.json");
 ```
 
 Using an endpoint:  
