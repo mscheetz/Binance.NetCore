@@ -85,6 +85,13 @@ namespace Binance.NetCore.Data.Interface
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
         Task<Candlestick[]> GetCandlestick(string symbol, Interval interval, int limit = 500);
+        
+        /// <summary>
+        /// Get 24hour ticker statistics
+        /// </summary>
+        /// <param name="symbol">Trading symbol (default = "")</param>
+        /// <returns>Array of Tick objects</returns>
+        Task<Tick[]> Get24HourStats(string symbol = "");
 
         /// <summary>
         /// Get BinanceTime

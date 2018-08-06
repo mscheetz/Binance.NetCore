@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Matt Scheetz</Authors>
+    <PackageProjectUrl>https://github.com/mscheetz/Binance.NetCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mscheetz/Binance.NetCore</RepositoryUrl>
+    <Copyright>2018 Matt Scheetz</Copyright>
+    <Description>Api library for accessing the Binance exchange Api</Description>
+    <PackageReleaseNotes>Api library for accessing the Binance exchange Api</PackageReleaseNotes>
+    <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

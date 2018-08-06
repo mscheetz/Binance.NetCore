@@ -299,6 +299,66 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
+        /// Get 24hour ticker statistics
+        /// </summary>
+        /// <param name="symbol">Trading symbol (default = "")</param>
+        /// <returns>Array of Tick objects</returns>
+        public async Task<Tick[]> Get24HourStats(string symbol = "")
+        {
+            return symbol == "" 
+                ? await OnGet24HourStats() 
+                : await OnGet24HourStat(symbol);
+        }
+
+        /// <summary>
+        /// Get 24hour ticker stats for all trading pairs
+        /// </summary>
+        /// <returns>Array of Tick Objects</returns>
+        private async Task<Tick[]> OnGet24HourStats()
+        {
+            var url = CreateUrl("/api/v1/ticker/24hr", false);
+
+            try
+            {
+                var response = await _restRepo.GetApiStream<Tick[]>(url);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get 24hour ticker stats for a trading pair
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <returns>Array of Tick objects</returns>
+        private async Task<Tick[]> OnGet24HourStat(string symbol)
+        {
+            var queryString = new List<string>
+            {
+                $"symbol={symbol}"
+            };
+
+            var url = CreateUrl("/api/v1/ticker/24hr", false, queryString.ToArray());
+
+            try
+            {
+                var response = await _restRepo.GetApiStream<Tick>(url);
+
+                var array = new Tick[1] { response };
+
+                return array;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Get BinanceTime
         /// </summary>
         /// <returns>long of timestamp</returns>

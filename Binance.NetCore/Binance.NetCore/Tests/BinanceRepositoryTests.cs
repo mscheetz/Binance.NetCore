@@ -97,5 +97,23 @@ namespace Binance.NetCore.Tests
 
             Assert.True(orders != null);
         }
+
+        [Fact]
+        public void Get24hrBTCUSDTTest()
+        {
+            var pair = "BTCUSDT";
+
+            var stats = _repo.Get24HourStats(pair).Result;
+
+            Assert.True(stats != null);
+        }
+
+        [Fact]
+        public void Get24hrTest()
+        {
+            var stats = _repo.Get24HourStats().Result;
+
+            Assert.True(stats != null);
+        }
     }
 }
