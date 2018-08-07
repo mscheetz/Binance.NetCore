@@ -1,6 +1,7 @@
 ﻿using Binance.NetCore.Data;
 using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace Binance.NetCore
 {
     public class BinanceApiClient
     {
+        [Obsolete("This initializer is depricated. Use direct method calls instead.")]
+        public IBinanceRepository BinanceRepository;
         private IBinanceRepository _repository;
 
         /// <summary>
@@ -15,6 +18,7 @@ namespace Binance.NetCore
         /// </summary>
         public BinanceApiClient()
         {
+            BinanceRepository = new BinanceRepository();
             _repository = new BinanceRepository();
         }
 
@@ -25,6 +29,7 @@ namespace Binance.NetCore
         /// <param name="apiSecret">Api secret</param>
         public BinanceApiClient(string apiKey, string apiSecret)
         {
+            BinanceRepository = new BinanceRepository(apiKey, apiSecret);
             _repository = new BinanceRepository(apiKey, apiSecret);
         }
 
@@ -34,6 +39,7 @@ namespace Binance.NetCore
         /// <param name="configPath">Path to config file</param>
         public BinanceApiClient(string configPath)
         {
+            BinanceRepository = new BinanceRepository(configPath);
             _repository = new BinanceRepository(configPath);
         }
 
