@@ -3,7 +3,7 @@
   
 This library is available on NuGet for download: https://www.nuget.org/packages/Binance.NetCore  
 ```
-PM> Install-Package Binance.NetCore -Version 1.2.0
+PM> Install-Package Binance.NetCore
 ```
 
   
