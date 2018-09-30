@@ -28,7 +28,7 @@ namespace Binance.NetCore.Tests
             }
             if (_exchangeApi != null || !string.IsNullOrEmpty(apiKey))
             {
-                _repo = new BinanceRepository(_exchangeApi.apiKey, _exchangeApi.apiSecret);
+                _repo = new BinanceRepository(_exchangeApi.apiKey, _exchangeApi.apiSecret, true);
             }
             else
             {
@@ -66,6 +66,24 @@ namespace Binance.NetCore.Tests
             var candleSticks = _repo.GetCandlestick(pair, interval).Result.ToList();
 
             Assert.True(candleSticks.Count > 0);
+        }
+
+        [Fact]
+        public void PostTrade()
+        {
+            var tradeParams = new TradeParams
+            {
+                price = 1000.00M,
+                quantity = 1M,
+                side = "BUY",
+                symbol = "BTCUSDT",
+                timeInForce = "GTC",
+                type = "limit"
+            };
+
+            var order = _repo.PostTrade(tradeParams).Result;
+
+            Assert.NotNull(order);
         }
 
         [Fact]

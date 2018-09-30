@@ -3,8 +3,8 @@ using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
 using DateTimeHelpers;
 using FileRepository;
-//using RESTApiAccess;
-//using RESTApiAccess.Interface;
+using RESTApiAccess;
+using RESTApiAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +20,7 @@ namespace Binance.NetCore.Data
         private string baseUrl;
         private ApiInformation _apiInfo = null;
         private DateTimeHelper _dtHelper;
+        private bool testApi = false;
 
         /// <summary>
         /// Constructor for non-signed endpoints
@@ -55,6 +56,44 @@ namespace Binance.NetCore.Data
             if(_fileRepo.FileExists(configPath))
             {
                 _apiInfo = _fileRepo.GetDataFromFile<ApiInformation>(configPath);
+                LoadRepository();
+            }
+            else
+            {
+                throw new Exception("Config file not found");
+            }
+        }
+
+        /// <summary>
+        /// Constructor for signed endpoints
+        /// </summary>
+        /// <param name="apiKey">Api key</param>
+        /// <param name="apiSecret">Api secret</param>
+        /// <param name="test">Testing api?</param>
+        public BinanceRepository(string apiKey, string apiSecret, bool test)
+        {
+            _apiInfo = new ApiInformation
+            {
+                apiKey = apiKey,
+                apiSecret = apiSecret
+            };
+            testApi = test;
+            LoadRepository();
+        }
+
+        /// <summary>
+        /// Constructor for signed endpoints
+        /// </summary>
+        /// <param name="configPath">String of path to configuration file</param>
+        /// <param name="test">Testing api?</param>
+        public BinanceRepository(string configPath, bool test)
+        {
+            IFileRepository _fileRepo = new FileRepository.FileRepository();
+
+            if (_fileRepo.FileExists(configPath))
+            {
+                _apiInfo = _fileRepo.GetDataFromFile<ApiInformation>(configPath);
+                testApi = test;
                 LoadRepository();
             }
             else
@@ -220,6 +259,7 @@ namespace Binance.NetCore.Data
                 $"quantity={tradeParams.quantity}",
                 $"price={tradeParams.price}"
             };
+
             string url = CreateUrl("/api/v3/order", true, queryString.ToArray());
 
             var response = await _restRepo.PostApi<TradeResponse>(url, GetRequestHeaders());
@@ -623,6 +663,7 @@ namespace Binance.NetCore.Data
         private string CreateUrl(string apiPath, bool secure, string queryString)
         {
             var url = string.Empty;
+            apiPath = testApi ? $"{apiPath}/test" : string.Empty;
             if (!secure)
             {
                 url = baseUrl + $"{apiPath}";
@@ -631,6 +672,10 @@ namespace Binance.NetCore.Data
 
                 return url;
             }
+
+            if (string.IsNullOrEmpty(queryString))
+                return baseUrl + apiPath;
+
             var timestamp = _dtHelper.UTCtoUnixTimeMilliseconds();
             var timeStampQS = $"timestamp={timestamp}";
             queryString = queryString != "" ? $"{queryString}&{timeStampQS}" : $"{timeStampQS}";
@@ -642,6 +687,23 @@ namespace Binance.NetCore.Data
             return url;
         }
 
+        /// <summary>
+        /// Get signature from dictionary of paramters
+        /// </summary>
+        /// <param name="parameters">paramters to sign</param>
+        /// <returns>String of signature</returns>
+        private string GetSignature(Dictionary<string, object> parameters)
+        {
+            var queryString = StringifyDictionary(parameters);
+
+            return security.GetBinanceHMACSignature(queryString, _apiInfo.apiSecret);
+        }
+
+        /// <summary>
+        /// Convert dictionary to querystring
+        /// </summary>
+        /// <param name="parameters">Dictionary to convert</param>
+        /// <returns>String of values</returns>
         private string StringifyDictionary(Dictionary<string, object> parameters)
         {
             var qsValues = string.Empty;
