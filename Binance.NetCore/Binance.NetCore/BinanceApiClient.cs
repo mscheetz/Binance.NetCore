@@ -540,6 +540,233 @@ namespace Binance.NetCore
         }
 
         /// <summary>
+        /// Place a limit order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> LimitOrderAsync(string symbol, Side side, decimal quantity, decimal price)
+        {
+            var tradeParams = new TradeParams
+            {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = symbol,
+                timeInForce = TimeInForce.GTC.ToString(),
+                type = OrderType.LIMIT.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a limit maker order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> LimitMakerOrderAsync(string symbol, Side side, decimal quantity, decimal price)
+        {
+            var tradeParams = new TradeParams
+            {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = symbol,
+                type = OrderType.LIMIT.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a limit order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="timeInForce">Time in force</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> LimitOrderAsync(string symbol, Side side, decimal quantity, decimal price, TimeInForce timeInForce)
+        {
+            var tradeParams = new TradeParams
+            {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = symbol,
+                timeInForce = timeInForce.ToString(),
+                type = OrderType.LIMIT.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a market order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> MarketOrderAsync(string symbol, Side side, decimal quantity)
+        {
+            var tradeParams = new TradeParams
+            {
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = symbol,
+                type = OrderType.MARKET.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a market order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="timeInForce">Time in force</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> MarketOrderAsync(string symbol, Side side, decimal quantity, TimeInForce timeInForce)
+        {
+            var tradeParams = new TradeParams
+            {
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = symbol,
+                timeInForce = timeInForce.ToString(),
+                type = OrderType.MARKET.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a stop loss
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="stopPrice">Decimal of stop price</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> StopLossAsync(string symbol, Side side, decimal quantity, decimal stopPrice)
+        {
+            var tradeParams = new TradeParams
+            {
+                quantity = quantity,
+                side = side.ToString(),
+                stopPrice = stopPrice,
+                symbol = symbol,
+                type = OrderType.STOP_LOSS.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a stop loss limit
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="stopPrice">Decimal of stop price</param>
+        /// <param name="timeInForce">Time in Force</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> StopLossLimitAsync(string symbol, Side side, decimal quantity, decimal price, decimal stopPrice, TimeInForce timeInForce)
+        {
+            var tradeParams = new TradeParams
+            {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                stopPrice = stopPrice,
+                symbol = symbol,
+                timeInForce = timeInForce.ToString(),
+                type = OrderType.STOP_LOSS_LIMIT.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a take profit order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="stopPrice">Decimal of stop price</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> TakeProfitAsync(string symbol, Side side, decimal quantity, decimal stopPrice)
+        {
+            var tradeParams = new TradeParams
+            {
+                quantity = quantity,
+                side = side.ToString(),
+                stopPrice = stopPrice,
+                symbol = symbol,
+                type = OrderType.TAKE_PROFIT.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Place a take profit limit order
+        /// </summary>
+        /// <param name="symbol">Trading symbol</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="stopPrice">Decimal of stop price</param>
+        /// <param name="timeInForce">Time in Force</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> TakeProfitLimitAsync(string symbol, Side side, decimal quantity, decimal price, decimal stopPrice, TimeInForce timeInForce)
+        {
+            var tradeParams = new TradeParams
+            {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                stopPrice = stopPrice,
+                symbol = symbol,
+                timeInForce = timeInForce.ToString(),
+                type = OrderType.TAKE_PROFIT_LIMIT.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
+        /// Post/Place a trade
+        /// </summary>
+        /// <param name="tradeParams">Trade to place</param>
+        /// <returns>TradeResponse object</returns>
+        public async Task<TradeResponse> PostTradeAsync(string symbol, Side side, decimal quantity, decimal price, OrderType type, TimeInForce timeInForce)
+        {
+            var tradeParams = new TradeParams
+            {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = symbol,
+                timeInForce = timeInForce.ToString(),
+                type = type.ToString()
+            };
+
+            return await _repository.PostTrade(tradeParams);
+        }
+
+        /// <summary>
         /// Post/Place a trade Async
         /// </summary>
         /// <param name="tradeParams">Trade to place</param>
