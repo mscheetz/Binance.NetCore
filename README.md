@@ -41,33 +41,32 @@ var balance = binance.GetBalance();
 ```
 
 Non-secure endpoints:  
-Get24HourStats() - Get 24hour stats for one or all trading pairs  
-Get24HourStatsAsync() - Get 24hour stats for one or all trading pairs  
-GetCryptos() - Get ticker for all pairs  
-GetCryptosAsync() - Get ticker for all pairs  
-GetOrderBook() - Get current order book for a trading pair  
-GetOrderBookAsync() - Get current order book for a trading pair  
-GetCandlestick() - Get charting candlesticks  
-GetCandlestickAsync() - Get charting candlesticks  
-Get24HourStats() - Get 24hour stats for one or all trading pairs  
-Get24HourStatsAsync() - Get 24hour stats for one or all trading pairs  
+Get24HourStats() | Get24HourStatsAsync() - Get 24hour stats for one or all trading pairs  
+GetCryptos() | GetCryptosAsync() - Get ticker for all pairs  
+GetOrderBook() | GetOrderBookAsync() - Get current order book for a trading pair  
+GetCandlestick() | GetCandlestickAsync() - Get charting candlesticks  
+Get24HourStats() | Get24HourStatsAsync() - Get 24hour stats for one or all trading pairs  
 GetBinanceTime() - Get binance server unix time  
 
 Secure endpoints:  
-GetBalance() - Get current asset balances  
-GetBalanceAsync() - Get current asset balances  
-GetOrder() - Get information for an order  
-GetOrderAsync() - Get information for an order  
-GetOrders() - Get all current user order information  
-GetOrdersAsync() - Get all current user order information  
-GetOpenOrders() - Get all current user open orders  
-GetOpenOrdersAsync() - Get all current user open orders  
-GetTransactions() - Get all transactions for account  
-GetTransactionsAsync() - Get all transactions for account  
-PostTrade() - Post a new trade  
-PostTradeAsync() - Post a new trade  
-DeleteTrade() - Delete a current open trade  
-DeleteTradeAsync() - Delete a current open trade  
+GetBalance() | GetBalanceAsync() - Get current asset balances  
+GetDepositAddress() | GetDepositAddressAsync() - Get deposit address  
+GetDepositHistory() | GetDepositHistoryAsync() - Get deposit history  
+GetOrder() | GetOrderAsync() - Get information for an order  
+GetOrders() | GetOrdersAsync() - Get all current user order information  
+GetOpenOrders()  | GetOpenOrdersAsync() - Get all current user open orders  
+GetTransactions() | GetTransactionsAsync() - Get all transactions for account  
+GetWithdrawalHistory() | GetWithdrawalHistoryAsync() - Get withdrawal history  
+DeleteTrade() | DeleteTradeAsync() - Delete a current open trade  
+LimitOrder() | LimitOrderAsync() - Place Limit order  
+LimitMakerOrder() | LimitMakerOrderAsync() - Place Limit Maker order  
+MarketOrder() | MarketOrderAsync() - Place Market order  
+StopLoss() | StopLossAsync() - Place Stop Loss order  
+StopLossLimit() | StopLossLimitAsync() - Place Stop Loss Limit order  
+TakeProfit() | TakeProfitAsync() - Place Take Profit order  
+TakeProfitLimit() | TakeProfitLimitAsync() - Place Take Profit Limit order  
+PostTrade() | PostTradeAsync() - Post a new trade  
+
 
 BNB:  
 0xdd061d572e94bb18b6b6ad7fec83d03225a200eb  
