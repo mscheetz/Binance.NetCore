@@ -98,5 +98,64 @@ namespace Binance.NetCore.Data.Interface
         /// </summary>
         /// <returns>long of timestamp</returns>
         long GetBinanceTime();
+
+        /// <summary>
+        /// Get all deposit history
+        /// </summary>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        Task<Deposit[]> GetDepositHistory(DepositStatus status = DepositStatus.all);
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        Task<Deposit[]> GetDepositHistory(string asset, DepositStatus status = DepositStatus.all);
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of deposits</returns>
+        Task<Deposit[]> GetDepositHistory(string asset, DepositStatus status, DateTime startTime, DateTime endTime);
+
+        /// <summary>
+        /// Get all withdrawal history
+        /// </summary>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        Task<Withdrawal[]> GetWithdrawalHistory(WithdrawalStatus status = WithdrawalStatus.all);
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        Task<Withdrawal[]> GetWithdrawalHistory(string asset, WithdrawalStatus status = WithdrawalStatus.all);
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of withdrawal</returns>
+        Task<Withdrawal[]> GetWithdrawalHistory(string asset, WithdrawalStatus status, DateTime startTime, DateTime endTime);
+        
+        /// <summary>
+        /// Get deposit address for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">Account status</param>
+        /// <param name="recvWindow">Recieving window?</param>
+        /// <returns>String of address</returns>
+        Task<Dictionary<string, string>> GetDepositAddress(string asset, bool? status = null, long recvWindow = 0);
     }
 }

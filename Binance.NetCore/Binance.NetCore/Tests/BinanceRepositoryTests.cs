@@ -12,7 +12,7 @@ namespace Binance.NetCore.Tests
     {
         private ApiInformation _exchangeApi = null;
         private IBinanceRepository _repo;
-        private string configPath = "";
+        private string configPath = "config.json";
         private string apiKey = string.Empty;
         private string apiSecret = string.Empty;
 
@@ -114,6 +114,36 @@ namespace Binance.NetCore.Tests
             var stats = _repo.Get24HourStats().Result;
 
             Assert.True(stats != null);
+        }
+
+        [Fact]
+        public void GetDepositHistory()
+        {
+            var asset = "ETH";
+
+            var history = _repo.GetDepositHistory(asset).Result;
+
+            Assert.NotNull(history);
+        }
+
+        [Fact]
+        public void GetWithdrawalHistory()
+        {
+            var asset = "ETH";
+
+            var history = _repo.GetWithdrawalHistory(asset).Result;
+
+            Assert.NotNull(history);
+        }
+
+        [Fact]
+        public void GetDepositAddress()
+        {
+            var asset = "ETH";
+
+            var address = _repo.GetDepositAddress(asset).Result;
+
+            Assert.NotNull(address);
         }
     }
 }

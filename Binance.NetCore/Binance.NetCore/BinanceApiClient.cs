@@ -165,6 +165,84 @@ namespace Binance.NetCore
         }
 
         /// <summary>
+        /// Get all deposit history
+        /// </summary>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        public Deposit[] GetDepositHistory(DepositStatus status = DepositStatus.all)
+        {
+            return _repository.GetDepositHistory(status).Result;
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        public Deposit[] GetDepositHistory(string asset, DepositStatus status = DepositStatus.all)
+        {
+            return _repository.GetDepositHistory(asset, status).Result;
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of deposits</returns>
+        public Deposit[] GetDepositHistory(string asset, DepositStatus status, DateTime startTime, DateTime endTime)
+        {
+            return _repository.GetDepositHistory(asset, status, startTime, endTime).Result;
+        }
+
+        /// <summary>
+        /// Get all withdrawal history
+        /// </summary>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        public Withdrawal[] GetWithdrawalHistory(WithdrawalStatus status = WithdrawalStatus.all)
+        {
+            return _repository.GetWithdrawalHistory(status).Result;
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        public Withdrawal[] GetWithdrawalHistory(string asset, WithdrawalStatus status = WithdrawalStatus.all)
+        {
+            return _repository.GetWithdrawalHistory(asset, status).Result;
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of withdrawal</returns>
+        public Withdrawal[] GetWithdrawalHistory(string asset, WithdrawalStatus status, DateTime startTime, DateTime endTime)
+        {
+            return _repository.GetWithdrawalHistory(asset, status, startTime, endTime).Result;
+        }
+
+        /// <summary>
+        /// Get deposit address for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <returns>String of address</returns>
+        public Dictionary<string, string> GetDepositAddress(string asset)
+        {
+            return _repository.GetDepositAddress(asset).Result;
+        }
+
+        /// <summary>
         /// Get BinanceTime
         /// </summary>
         /// <returns>long of timestamp</returns>
@@ -283,6 +361,84 @@ namespace Binance.NetCore
         public async Task<Tick[]> Get24HourStatsAsync(string symbol = "")
         {
             return await _repository.Get24HourStats(symbol);
+        }
+
+        /// <summary>
+        /// Get all deposit history
+        /// </summary>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        public async Task<Deposit[]> GetDepositHistoryAsync(DepositStatus status = DepositStatus.all)
+        {
+            return await _repository.GetDepositHistory(status);
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        public async Task<Deposit[]> GetDepositHistoryAsync(string asset, DepositStatus status = DepositStatus.all)
+        {
+            return await _repository.GetDepositHistory(asset, status);
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of deposits</returns>
+        public async Task<Deposit[]> GetDepositHistoryAsync(string asset, DepositStatus status, DateTime startTime, DateTime endTime)
+        {
+            return await _repository.GetDepositHistory(asset, status, startTime, endTime);
+        }
+
+        /// <summary>
+        /// Get all withdrawal history
+        /// </summary>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        public async Task<Withdrawal[]> GetWithdrawalHistoryAsync(WithdrawalStatus status = WithdrawalStatus.all)
+        {
+            return await _repository.GetWithdrawalHistory(status);
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        public async Task<Withdrawal[]> GetWithdrawalHistoryAsync(string asset, WithdrawalStatus status = WithdrawalStatus.all)
+        {
+            return await _repository.GetWithdrawalHistory(asset, status);
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of withdrawal</returns>
+        public async Task<Withdrawal[]> GetWithdrawalHistoryAsync(string asset, WithdrawalStatus status, DateTime startTime, DateTime endTime)
+        {
+            return await _repository.GetWithdrawalHistory(asset, status, startTime, endTime);
+        }
+
+        /// <summary>
+        /// Get deposit address for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <returns>String of address</returns>
+        public async Task<Dictionary<string, string>> GetDepositAddressAsync(string asset)
+        {
+            return await _repository.GetDepositAddress(asset);
         }
     }
 }

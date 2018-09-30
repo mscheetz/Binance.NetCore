@@ -3,10 +3,11 @@ using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
 using DateTimeHelpers;
 using FileRepository;
-using RESTApiAccess;
-using RESTApiAccess.Interface;
+//using RESTApiAccess;
+//using RESTApiAccess.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -359,6 +360,200 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
+        /// Get all deposit history
+        /// </summary>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        public async Task<Deposit[]> GetDepositHistory(DepositStatus status = DepositStatus.all)
+        {
+            return await OnGetDepositHistory("", (int) status, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <returns>Array of deposits</returns>
+        public async Task<Deposit[]> GetDepositHistory(string asset, DepositStatus status = DepositStatus.all)
+        {
+            return await OnGetDepositHistory(asset, (int) status, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of deposits</returns>
+        public async Task<Deposit[]> GetDepositHistory(string asset, DepositStatus status, DateTime startTime, DateTime endTime)
+        {
+            var start = _dtHelper.UTCtoUnixTime(startTime);
+            var end = _dtHelper.UTCtoUnixTime(endTime);
+
+            return await OnGetDepositHistory(asset, (int)status, start, end, 0);
+        }
+
+        /// <summary>
+        /// Get deposit history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">deposit status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <param name="recvWindow">Recieving window?</param>
+        /// <returns>Array of deposits</returns>
+        private async Task<Deposit[]> OnGetDepositHistory(string asset, int status, long startTime, long endTime, long recvWindow)
+        {
+            if (string.IsNullOrEmpty(asset))
+                throw new Exception("Asset type cannot be empty!");
+
+            var parameters = new Dictionary<string, object>();
+            if (asset != "")
+                parameters.Add("asset", asset);
+            if (endTime > 0)
+                parameters.Add("endTime", endTime);
+            if (recvWindow > 0)
+                parameters.Add("recvWindow", recvWindow);
+            if (startTime > 0)
+                parameters.Add("startTime", startTime);
+            if (status < 2)
+                parameters.Add("status", status);
+
+            var url = CreateUrl("/wapi/v3/depositHistory.html", true, parameters);
+
+            try
+            {
+                var response = await _restRepo.GetApiStream<ResponseWrapper<Deposit[]>>(url, GetRequestHeaders());
+
+                return response.depositList;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get all withdrawal history
+        /// </summary>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        public async Task<Withdrawal[]> GetWithdrawalHistory(WithdrawalStatus status = WithdrawalStatus.all)
+        {
+            return await OnGetWithdrawalHistory("", (int)status, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <returns>Array of withdrawal</returns>
+        public async Task<Withdrawal[]> GetWithdrawalHistory(string asset, WithdrawalStatus status = WithdrawalStatus.all)
+        {
+            return await OnGetWithdrawalHistory(asset, (int)status, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <returns>Array of withdrawal</returns>
+        public async Task<Withdrawal[]> GetWithdrawalHistory(string asset, WithdrawalStatus status, DateTime startTime, DateTime endTime)
+        {
+            var start = _dtHelper.UTCtoUnixTime(startTime);
+            var end = _dtHelper.UTCtoUnixTime(endTime);
+
+            return await OnGetWithdrawalHistory(asset, (int)status, start, end, 0);
+        }
+
+        /// <summary>
+        /// Get withdrawal history for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">withdrawal status (default all)</param>
+        /// <param name="startTime">Start of date range</param>
+        /// <param name="endTime">End of date range</param>
+        /// <param name="recvWindow">Recieving window?</param>
+        /// <returns>Array of withdrawal</returns>
+        private async Task<Withdrawal[]> OnGetWithdrawalHistory(string asset, int status, long startTime, long endTime, long recvWindow)
+        {
+            if (string.IsNullOrEmpty(asset))
+                throw new Exception("Asset type cannot be empty!");
+
+            var parameters = new Dictionary<string, object>();
+            if (asset != "")
+                parameters.Add("asset", asset);
+            if (endTime > 0)
+                parameters.Add("endTime", endTime);
+            if (recvWindow > 0)
+                parameters.Add("recvWindow", recvWindow);
+            if (startTime > 0)
+                parameters.Add("startTime", startTime);
+            if (status < 7)
+                parameters.Add("status", status);
+
+            var url = CreateUrl("/wapi/v3/withdrawHistory.html", true, parameters);
+
+            try
+            {
+                var response = await _restRepo.GetApiStream<ResponseWrapper<Withdrawal[]>>(url, GetRequestHeaders());
+
+                return response.withdrawList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get deposit address for an asset
+        /// </summary>
+        /// <param name="asset">string of asset</param>
+        /// <param name="status">Account status</param>
+        /// <param name="recvWindow">Recieving window?</param>
+        /// <returns>String of address</returns>
+        public async Task<Dictionary<string, string>> GetDepositAddress(string asset, bool? status = null, long recvWindow = 0)
+        {
+            if (string.IsNullOrEmpty(asset))
+                throw new Exception("Asset type cannot be empty!");
+
+            var parameters = new Dictionary<string, object>();
+            if (asset != "")
+                parameters.Add("asset", asset);
+            if (recvWindow > 0)
+                parameters.Add("recvWindow", recvWindow);
+            if (status != null)
+                parameters.Add("status", status);
+
+            var url = CreateUrl("/wapi/v3/depositAddress.html", true, parameters);
+
+            try
+            {
+                var response = await _restRepo.GetApiStream<Dictionary<string, object>>(url, GetRequestHeaders());
+
+                var addresses = new Dictionary<string, string>();
+                addresses.Add("address", response["address"].ToString());
+
+                if(response["addressTag"].ToString() != "")
+                    addresses.Add("address tag", response["addressTag"].ToString());
+
+                return addresses;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Get BinanceTime
         /// </summary>
         /// <returns>long of timestamp</returns>
@@ -386,6 +581,20 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
+        /// Create a CoinEx url
+        /// </summary>
+        /// <param name="apiPath">String of path to endpoint</param>
+        /// <param name="secure">Boolean if secure endpoin (default = true)</param>
+        /// <param name="parameters">Dictionary of querystring values</param>
+        /// <returns>String of url</returns>
+        private string CreateUrl(string apiPath, bool secure, Dictionary<string, object> parameters)
+        {
+            var qsValues = StringifyDictionary(parameters);
+
+            return CreateUrl(apiPath, secure, qsValues);
+        }
+
+        /// <summary>
         /// Create a Binance url
         /// </summary>
         /// <param name="apiPath">String of path to endpoint</param>
@@ -398,35 +607,51 @@ namespace Binance.NetCore.Data
             var url = string.Empty;
             if (queryString != null)
             {
-                for (int i = 0; i < queryString.Length; i++)
-                {
-                    qsValues += qsValues != string.Empty ? "&" : "";
-                    qsValues += queryString[i];
-                }
+                qsValues = string.Join("&", queryString);
             }
+
+            return CreateUrl(apiPath, secure, qsValues);
+        }
+
+        /// <summary>
+        /// Create a Binance url
+        /// </summary>
+        /// <param name="apiPath">String of path to endpoint</param>
+        /// <param name="secure">Boolean if secure endpoin (default = true)</param>
+        /// <param name="queryString">String of querystring values</param>
+        /// <returns>String of url</returns>
+        private string CreateUrl(string apiPath, bool secure, string queryString)
+        {
+            var url = string.Empty;
             if (!secure)
             {
                 url = baseUrl + $"{apiPath}";
-                if (qsValues != string.Empty)
-                    url += "?" + qsValues;
+                if (queryString != "")
+                    url += "?" + queryString;
 
                 return url;
             }
             var timestamp = _dtHelper.UTCtoUnixTimeMilliseconds();
             var timeStampQS = $"timestamp={timestamp}";
-            if (qsValues != string.Empty)
-            {
-                qsValues += $"&{timeStampQS}";
-            }
-            else
-            {
-                qsValues = $"{timeStampQS}";
-            }
-            var hmac = security.GetBinanceHMACSignature(qsValues, _apiInfo.apiSecret);
+            queryString = queryString != "" ? $"{queryString}&{timeStampQS}" : $"{timeStampQS}";
 
-            url = baseUrl + $"{apiPath}?{qsValues}&signature={hmac}";
+            var hmac = security.GetBinanceHMACSignature(queryString, _apiInfo.apiSecret);
+
+            url = baseUrl + $"{apiPath}?{queryString}&signature={hmac}";
 
             return url;
+        }
+
+        private string StringifyDictionary(Dictionary<string, object> parameters)
+        {
+            var qsValues = string.Empty;
+
+            if (parameters != null)
+            {
+                qsValues = string.Join("&", parameters.Select(p => p.Key + "=" + p.Value));
+            }
+
+            return qsValues;
         }
     }
 }
