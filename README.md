@@ -1,9 +1,9 @@
 # Binance.NetCore
-.Net Core library for accessing the [Binance Exchange](https://www.binance.com) api  
+.Net Core library for accessing the [Binance Exchange](https://www.binance.com/?ref=12866217) api  
   
 This library is available on NuGet for download: https://www.nuget.org/packages/Binance.NetCore  
 ```
-PM> Install-Package Binance.NetCore -Version 1.2.0
+PM> Install-Package Binance.NetCore
 ```
 
   
