@@ -57,6 +57,7 @@ GetOrders() | GetOrdersAsync() - Get all current user order information
 GetOpenOrders()  | GetOpenOrdersAsync() - Get all current user open orders  
 GetTransactions() | GetTransactionsAsync() - Get all transactions for account  
 GetWithdrawalHistory() | GetWithdrawalHistoryAsync() - Get withdrawal history  
+WithdrawFunds() | WithdrawFundsAsync() - Withdraw funds from exchange  
 DeleteTrade() | DeleteTradeAsync() - Delete a current open trade  
 LimitOrder() | LimitOrderAsync() - Place Limit order  
 LimitMakerOrder() | LimitMakerOrderAsync() - Place Limit Maker order  
