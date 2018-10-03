@@ -100,6 +100,46 @@ namespace Binance.NetCore.Data.Interface
         long GetBinanceTime();
 
         /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, decimal amount);
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, decimal amount, string description);
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, string addressTag, decimal amount);
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, string addressTag, decimal amount, string description);
+
+        /// <summary>
         /// Get all deposit history
         /// </summary>
         /// <param name="status">deposit status (default all)</param>

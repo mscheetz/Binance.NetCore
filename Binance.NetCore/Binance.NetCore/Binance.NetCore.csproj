@@ -7,10 +7,10 @@
     <RepositoryUrl>https://github.com/mscheetz/Binance.NetCore</RepositoryUrl>
     <Copyright>2018 Matt Scheetz</Copyright>
     <Description>Api library for accessing the Binance exchange Api</Description>
-    <PackageReleaseNotes>async order methods</PackageReleaseNotes>
+    <PackageReleaseNotes>Add withdraw funds functionality</PackageReleaseNotes>
     <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
     <IsPackable>true</IsPackable>
-    <Version>1.3.1</Version>
+    <Version>1.4.0</Version>
     <PackageLicenseUrl>https://github.com/mscheetz/Binance.NetCore/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 

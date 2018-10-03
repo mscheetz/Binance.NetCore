@@ -163,5 +163,19 @@ namespace Binance.NetCore.Tests
 
             Assert.NotNull(address);
         }
+
+        [Fact]
+        public void WithdrawFundsTest()
+        {
+            var asset = "XLM";
+            var address = "GB6YPGW5JFMMP2QB2USQ33EUWTXVL4ZT5ITUNCY3YKVWOJPP57CANOF3";
+            var addressTag = "086b22f1e5604f18a47";
+            var amount = 100.0M;
+
+            var withdrawResponse = _repo.WithdrawFunds(asset, address, addressTag, amount).Result;
+
+            Assert.NotNull(withdrawResponse);
+            Assert.True(withdrawResponse.success);
+        }
     }
 }

@@ -3,8 +3,8 @@ using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
 using DateTimeHelpers;
 using FileRepository;
-using RESTApiAccess;
-using RESTApiAccess.Interface;
+//using RESTApiAccess;
+//using RESTApiAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -399,6 +399,102 @@ namespace Binance.NetCore.Data
             }
         }
 
+        #region WAPI
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, decimal amount)
+        {
+            return await OnPostWithdrawal(symbol, address, amount);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, decimal amount, string description)
+        {
+            return await OnPostWithdrawal(symbol, address, amount, description);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, string addressTag, decimal amount)
+        {
+            return await OnPostWithdrawal(symbol, address, amount, "", addressTag);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFunds(string symbol, string address, string addressTag, decimal amount, string description)
+        {
+            return await OnPostWithdrawal(symbol, address, amount, description, addressTag);
+        }
+
+        /// <summary>
+        /// Post a withdrawal
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="name">Description of address</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="recvWindow">Recieving window?</param>
+        /// <returns>Withdrawal response</returns>
+        private async Task<WithdrawalResponse> OnPostWithdrawal(string symbol, string address, decimal amount, string name = "", string addressTag = "", long recvWindow = 0)
+        {
+            if (string.IsNullOrEmpty(symbol))
+                throw new Exception("Asset type cannot be empty!");
+
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("asset", symbol);
+            parameters.Add("address", address);
+            if (!string.IsNullOrEmpty(addressTag))
+                parameters.Add("addressTag", addressTag);
+
+            parameters.Add("amount", amount);
+            if(!string.IsNullOrEmpty(name))
+                parameters.Add("name", name);
+            if (recvWindow > 0)
+                parameters.Add("recvWindow", recvWindow);
+            parameters.Add("timestamp", _dtHelper.UTCtoUnixTimeMilliseconds());
+
+            var url = CreateUrl("/wapi/v3/withdraw.html", true, parameters);
+
+            try
+            {
+                var response = await _restRepo.PostApi<WithdrawalResponse>(url, GetRequestHeaders());
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Get all deposit history
         /// </summary>
@@ -593,6 +689,8 @@ namespace Binance.NetCore.Data
             }
         }
 
+#endregion
+
         /// <summary>
         /// Get BinanceTime
         /// </summary>
@@ -663,7 +761,8 @@ namespace Binance.NetCore.Data
         private string CreateUrl(string apiPath, bool secure, string queryString)
         {
             var url = string.Empty;
-            apiPath = testApi ? $"{apiPath}/test" : string.Empty;
+            if(apiPath.IndexOf("wapi")<0)
+                apiPath = testApi ? $"{apiPath}/test" : string.Empty;
             if (!secure)
             {
                 url = baseUrl + $"{apiPath}";

@@ -392,6 +392,58 @@ namespace Binance.NetCore
         }
 
         /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        public WithdrawalResponse WithdrawFunds(string symbol, string address, decimal amount)
+        {
+            return _repository.WithdrawFunds(symbol, address, amount).Result;
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        public WithdrawalResponse WithdrawFunds(string symbol, string address, decimal amount, string description)
+        {
+            return _repository.WithdrawFunds(symbol, address, amount,description).Result;
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        public WithdrawalResponse WithdrawFunds(string symbol, string address, string addressTag, decimal amount)
+        {
+            return _repository.WithdrawFunds(symbol, address, addressTag, amount).Result;
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        public WithdrawalResponse WithdrawFunds(string symbol, string address, string addressTag, decimal amount, string description)
+        {
+            return _repository.WithdrawFunds(symbol, address, addressTag, amount, description).Result;
+        }
+
+        /// <summary>
         /// Get all deposit history
         /// </summary>
         /// <param name="status">deposit status (default all)</param>
@@ -815,6 +867,58 @@ namespace Binance.NetCore
         public async Task<Tick[]> Get24HourStatsAsync(string symbol = "")
         {
             return await _repository.Get24HourStats(symbol);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFundsAsync(string symbol, string address, decimal amount)
+        {
+            return await _repository.WithdrawFunds(symbol, address, amount);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFundsAsync(string symbol, string address, decimal amount, string description)
+        {
+            return await _repository.WithdrawFunds(symbol, address, amount, description);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFundsAsync(string symbol, string address, string addressTag, decimal amount)
+        {
+            return await _repository.WithdrawFunds(symbol, address, addressTag, amount);
+        }
+
+        /// <summary>
+        /// Withdraw funds from exchange
+        /// </summary>
+        /// <param name="symbol">Symbol of asset</param>
+        /// <param name="address">Address to send funds to</param>
+        /// <param name="addressTag">Secondary address identifier</param>
+        /// <param name="amount">Decimal of amount</param>
+        /// <param name="description">Description of address</param>
+        /// <returns>Withdrawal response</returns>
+        public async Task<WithdrawalResponse> WithdrawFundsAsync(string symbol, string address, string addressTag, decimal amount, string description)
+        {
+            return await _repository.WithdrawFunds(symbol, address, addressTag, amount, description);
         }
 
         /// <summary>
