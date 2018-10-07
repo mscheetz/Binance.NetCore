@@ -9,6 +9,7 @@ PM> Install-Package Binance.NetCore
   
 To trade, log into your Binance account and create an api key with trading permissions:  
 Account -> API -> Create (with Read Info & Enable Trading)  
+** if you wish to use withdraw endpoint, you need to enable withdraws on your API key  
 Store your API Key & Secret Key  
   
 Initialization:  
