@@ -10,9 +10,9 @@
     <PackageReleaseNotes>Api library for accessing the Binance exchange Api built on .Net Standard</PackageReleaseNotes>
     <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
     <IsPackable>true</IsPackable>
-    <Version>0.1.0</Version>
+    <Version>1.5.0</Version>
     <PackageLicenseUrl>https://github.com/mscheetz/Binance.NetCore/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageId>Binance.NetStd</PackageId>
+    <PackageId>Binance.NetCore</PackageId>
     <Product>Binance.NetStd</Product>
   </PropertyGroup>
 
