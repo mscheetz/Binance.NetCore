@@ -9,6 +9,7 @@ PM> Install-Package Binance.NetCore
   
 To trade, log into your Binance account and create an api key with trading permissions:  
 Account -> API -> Create (with Read Info & Enable Trading)  
+** if you wish to use withdraw endpoint, you need to enable withdraws on your API key  
 Store your API Key & Secret Key  
   
 Initialization:  
@@ -57,6 +58,7 @@ GetOrders() | GetOrdersAsync() - Get all current user order information
 GetOpenOrders()  | GetOpenOrdersAsync() - Get all current user open orders  
 GetTransactions() | GetTransactionsAsync() - Get all transactions for account  
 GetWithdrawalHistory() | GetWithdrawalHistoryAsync() - Get withdrawal history  
+WithdrawFunds() | WithdrawFundsAsync() - Withdraw funds from exchange  
 DeleteTrade() | DeleteTradeAsync() - Delete a current open trade  
 LimitOrder() | LimitOrderAsync() - Place Limit order  
 LimitMakerOrder() | LimitMakerOrderAsync() - Place Limit Maker order  
