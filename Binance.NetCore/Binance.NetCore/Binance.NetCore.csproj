@@ -12,8 +12,8 @@
     <IsPackable>true</IsPackable>
     <Version>0.1.0</Version>
     <PackageLicenseUrl>https://github.com/mscheetz/Binance.NetCore/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageId>Binance.NetStandard</PackageId>
-    <Product>Binance.NetStandard</Product>
+    <PackageId>Binance.NetStd</PackageId>
+    <Product>Binance.NetStd</Product>
   </PropertyGroup>
 
   <ItemGroup>
