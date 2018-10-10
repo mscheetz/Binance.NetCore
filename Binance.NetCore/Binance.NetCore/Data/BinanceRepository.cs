@@ -3,8 +3,8 @@ using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
 using DateTimeHelpers;
 using FileRepository;
-//using RESTApiAccess;
-//using RESTApiAccess.Interface;
+using RESTApiAccess;
+using RESTApiAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -260,7 +260,7 @@ namespace Binance.NetCore.Data
                 $"price={tradeParams.price}"
             };
 
-            string url = CreateUrl("/api/v3/order", true, queryString.ToArray());
+            string url = CreateUrl("/api/v3/order", true, queryString.ToArray(), true);
 
             var response = await _restRepo.PostApi<TradeResponse>(url, GetRequestHeaders());
 
@@ -699,11 +699,9 @@ namespace Binance.NetCore.Data
         {
             string url = CreateUrl("/api/v1/time", false);
 
-            var response = _restRepo.GetApi<ServerTime>(url);
+            var response = _restRepo.GetApi<ServerTime>(url).Result;
 
-            response.Wait();
-
-            return response.Result.serverTime;
+            return response.serverTime;
         }
 
         /// <summary>
@@ -724,12 +722,13 @@ namespace Binance.NetCore.Data
         /// <param name="apiPath">String of path to endpoint</param>
         /// <param name="secure">Boolean if secure endpoin (default = true)</param>
         /// <param name="parameters">Dictionary of querystring values</param>
+        /// <param name="testable">Does the endpoint have a test api</param>
         /// <returns>String of url</returns>
-        private string CreateUrl(string apiPath, bool secure, Dictionary<string, object> parameters)
+        private string CreateUrl(string apiPath, bool secure, Dictionary<string, object> parameters, bool testable = false)
         {
             var qsValues = StringifyDictionary(parameters);
 
-            return CreateUrl(apiPath, secure, qsValues);
+            return CreateUrl(apiPath, secure, qsValues, testable);
         }
 
         /// <summary>
@@ -738,8 +737,9 @@ namespace Binance.NetCore.Data
         /// <param name="apiPath">String of path to endpoint</param>
         /// <param name="secure">Boolean if secure endpoin (default = true)</param>
         /// <param name="queryString">String[] of querystring values</param>
+        /// <param name="testable">Does the endpoint have a test api</param>
         /// <returns>String of url</returns>
-        private string CreateUrl(string apiPath, bool secure = true, string[] queryString = null)
+        private string CreateUrl(string apiPath, bool secure = true, string[] queryString = null, bool testable = false)
         {
             var qsValues = string.Empty;
             var url = string.Empty;
@@ -748,7 +748,7 @@ namespace Binance.NetCore.Data
                 qsValues = string.Join("&", queryString);
             }
 
-            return CreateUrl(apiPath, secure, qsValues);
+            return CreateUrl(apiPath, secure, qsValues, testable);
         }
 
         /// <summary>
@@ -757,11 +757,12 @@ namespace Binance.NetCore.Data
         /// <param name="apiPath">String of path to endpoint</param>
         /// <param name="secure">Boolean if secure endpoin (default = true)</param>
         /// <param name="queryString">String of querystring values</param>
+        /// <param name="testable">Does the endpoint have a test api</param>
         /// <returns>String of url</returns>
-        private string CreateUrl(string apiPath, bool secure, string queryString)
+        private string CreateUrl(string apiPath, bool secure, string queryString, bool testable = false)
         {
             var url = string.Empty;
-            if(apiPath.IndexOf("wapi")<0)
+            if(testable)
                 apiPath = testApi ? $"{apiPath}/test" : string.Empty;
             if (!secure)
             {
