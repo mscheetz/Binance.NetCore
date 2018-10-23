@@ -1,0 +1,1124 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Binance.NetCore</name>
+    </assembly>
+    <members>
+        <member name="M:Binance.NetCore.BinanceApiClient.#ctor">
+            <summary>
+            Constructor - no authentication
+            </summary>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.#ctor(System.String,System.String)">
+            <summary>
+            Constructor - with authentication
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api secret</param>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.#ctor(System.String)">
+            <summary>
+            Constructor - with authentication
+            </summary>
+            <param name="configPath">Path to config file</param>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.ValidateExchangeConfigured">
+            <summary>
+            Check if the Exchange Repository is ready for trading
+            </summary>
+            <returns>Boolean of validation</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTransactions">
+            <summary>
+            Get Transactions for account
+            </summary>
+            <returns>Collection of Transactions</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetBalance">
+            <summary>
+            Get account balance
+            </summary>
+            <returns>Account object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrder(System.String,System.Int64)">
+            <summary>
+            Get order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="orderId">long of orderId</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrders(System.String,System.Int32)">
+            <summary>
+            Get all order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="limit">Int of orders count to return, default 20</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOpenOrders(System.String)">
+            <summary>
+            Get all open orders
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrderBook(System.String,System.Int32)">
+            <summary>
+            Get Order Book for a pair
+            </summary>
+            <param name="symbol">string of trading pair</param>
+            <param name="limit">Number of orders to return</param>
+            <returns>OrderBook object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a limit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitMakerOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a limit maker order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a limit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="timeInForce">Time in force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.MarketOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal)">
+            <summary>
+            Place a market order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.MarketOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a market order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="timeInForce">Time in force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.StopLoss(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop loss
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.StopLossLimit(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a stop loss limit
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <param name="timeInForce">Time in Force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.TakeProfit(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a take profit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.TakeProfitLimit(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a take profit limit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <param name="timeInForce">Time in Force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.PostTrade(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.OrderType,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Post/Place a trade
+            </summary>
+            <param name="tradeParams">Trade to place</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.PostTrade(Binance.NetCore.Entities.TradeParams)">
+            <summary>
+            Post/Place a trade
+            </summary>
+            <param name="tradeParams">Trade to place</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.DeleteTrade(Binance.NetCore.Entities.CancelTradeParams)">
+            <summary>
+            Delete/Cancel a trade
+            </summary>
+            <param name="tradeParams">Trade to delete</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCrytpos">
+            <summary>
+            Get Ticker for all pairs
+            </summary>
+            <returns>Collection of BinanceTick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
+            <summary>
+            Get Candlesticks for a symbol
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.Get24HourStats(System.String)">
+            <summary>
+            Get 24hour ticker statistics
+            </summary>
+            <param name="symbol">Trading symbol (default = "")</param>
+            <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFunds(System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFunds(System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFunds(System.String,System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFunds(System.String,System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositHistory(Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get all deposit history
+            </summary>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositHistory(System.String,Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositHistory(System.String,Binance.NetCore.Entities.DepositStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetWithdrawalHistory(Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get all withdrawal history
+            </summary>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetWithdrawalHistory(System.String,Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetWithdrawalHistory(System.String,Binance.NetCore.Entities.WithdrawalStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositAddress(System.String)">
+            <summary>
+            Get deposit address for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <returns>String of address</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetBinanceTime">
+            <summary>
+            Get BinanceTime
+            </summary>
+            <returns>long of timestamp</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTransactionsAsync">
+            <summary>
+            Get Transactions for account Async
+            </summary>
+            <returns>Collection of Transactions</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetBalanceAsync">
+            <summary>
+            Get account balance Async
+            </summary>
+            <returns>Account object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrderAsync(System.String,System.Int64)">
+            <summary>
+            Get order information Async
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="orderId">long of orderId</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrdersAsync(System.String,System.Int32)">
+            <summary>
+            Get all order information Async
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="limit">Int of orders count to return, default 20</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOpenOrdersAsync(System.String)">
+            <summary>
+            Get all open orders Async
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrderBookAsync(System.String,System.Int32)">
+            <summary>
+            Get Order Book for a pair Async
+            </summary>
+            <param name="symbol">string of trading pair</param>
+            <param name="limit">Number of orders to return</param>
+            <returns>OrderBook object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitOrderAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a limit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitMakerOrderAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a limit maker order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitOrderAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a limit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="timeInForce">Time in force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.MarketOrderAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal)">
+            <summary>
+            Place a market order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.MarketOrderAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a market order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="timeInForce">Time in force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.StopLossAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop loss
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.StopLossLimitAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a stop loss limit
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <param name="timeInForce">Time in Force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.TakeProfitAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
+            <summary>
+            Place a take profit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.TakeProfitLimitAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Place a take profit limit order
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <param name="timeInForce">Time in Force</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.PostTradeAsync(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.OrderType,Binance.NetCore.Entities.TimeInForce)">
+            <summary>
+            Post/Place a trade
+            </summary>
+            <param name="tradeParams">Trade to place</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.PostTradeAsync(Binance.NetCore.Entities.TradeParams)">
+            <summary>
+            Post/Place a trade Async
+            </summary>
+            <param name="tradeParams">Trade to place</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.DeleteTradeAsync(Binance.NetCore.Entities.CancelTradeParams)">
+            <summary>
+            Delete/Cancel a trade Async
+            </summary>
+            <param name="tradeParams">Trade to delete</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCrytposAsync">
+            <summary>
+            Get Ticker for all pairs Async
+            </summary>
+            <returns>Collection of BinanceTick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
+            <summary>
+            Get Candlesticks for a symbol Async
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.Get24HourStatsAsync(System.String)">
+            <summary>
+            Get 24hour ticker statistics Async
+            </summary>
+            <param name="symbol">Trading symbol (default = "")</param>
+            <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFundsAsync(System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFundsAsync(System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFundsAsync(System.String,System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFundsAsync(System.String,System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositHistoryAsync(Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get all deposit history
+            </summary>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositHistoryAsync(System.String,Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositHistoryAsync(System.String,Binance.NetCore.Entities.DepositStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetWithdrawalHistoryAsync(Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get all withdrawal history
+            </summary>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetWithdrawalHistoryAsync(System.String,Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetWithdrawalHistoryAsync(System.String,Binance.NetCore.Entities.WithdrawalStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetDepositAddressAsync(System.String)">
+            <summary>
+            Get deposit address for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <returns>String of address</returns>
+        </member>
+        <member name="M:Binance.NetCore.Core.EnumHelper.GetEnumDescription(System.Enum)">
+            <summary>
+            Get Description form an enum
+            </summary>
+            <param name="value">Enum value</param>
+            <returns>string of description</returns>
+        </member>
+        <member name="M:Binance.NetCore.Core.Security.GetBinanceHMACSignature(System.String,System.String)">
+            <summary>
+            Get HMAC Signature
+            </summary>
+            <param name="message">Message to sign</param>
+            <param name="keySecret">Api key secret</param>
+            <returns>string of signed message</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.ValidateExchangeConfigured">
+            <summary>
+            Check if the Exchange Repository is ready for trading
+            </summary>
+            <returns>Boolean of validation</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTransactions">
+            <summary>
+            Get Transactions for account
+            </summary>
+            <returns>Collection of Transactions</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetBalance">
+            <summary>
+            Get account balance
+            </summary>
+            <returns>Account object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrder(System.String,System.Int64)">
+            <summary>
+            Get order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="orderId">long of orderId</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrders(System.String,System.Int32)">
+            <summary>
+            Get all order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="limit">Int of orders count to return, default 20</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOpenOrders(System.String)">
+            <summary>
+            Get all open orders
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrderBook(System.String,System.Int32)">
+            <summary>
+            Get Order Book for a pair
+            </summary>
+            <param name="symbol">string of trading pair</param>
+            <param name="limit">Number of orders to return</param>
+            <returns>OrderBook object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.PostTrade(Binance.NetCore.Entities.TradeParams)">
+            <summary>
+            Post/Place a trade
+            </summary>
+            <param name="tradeParams">Trade to place</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.DeleteTrade(Binance.NetCore.Entities.CancelTradeParams)">
+            <summary>
+            Delete/Cancel a trade
+            </summary>
+            <param name="tradeParams">Trade to delete</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCrytpos">
+            <summary>
+            Get Ticker for all pairs
+            </summary>
+            <returns>Collection of BinanceTick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
+            <summary>
+            Get Candlesticks for a symbol
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.Get24HourStats(System.String)">
+            <summary>
+            Get 24hour ticker statistics
+            </summary>
+            <param name="symbol">Trading symbol (default = "")</param>
+            <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetBinanceTime">
+            <summary>
+            Get BinanceTime
+            </summary>
+            <returns>long of timestamp</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.WithdrawFunds(System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.WithdrawFunds(System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.WithdrawFunds(System.String,System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.WithdrawFunds(System.String,System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetDepositHistory(Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get all deposit history
+            </summary>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetDepositHistory(System.String,Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetDepositHistory(System.String,Binance.NetCore.Entities.DepositStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetWithdrawalHistory(Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get all withdrawal history
+            </summary>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetWithdrawalHistory(System.String,Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetWithdrawalHistory(System.String,Binance.NetCore.Entities.WithdrawalStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetDepositAddress(System.String,System.Nullable{System.Boolean},System.Int64)">
+            <summary>
+            Get deposit address for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">Account status</param>
+            <param name="recvWindow">Recieving window?</param>
+            <returns>String of address</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.#ctor">
+            <summary>
+            Constructor for non-signed endpoints
+            </summary>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api secret</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.#ctor(System.String)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="configPath">String of path to configuration file</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api secret</param>
+            <param name="test">Testing api?</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="configPath">String of path to configuration file</param>
+            <param name="test">Testing api?</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.LoadRepository(System.String,System.String)">
+            <summary>
+            Load repository
+            </summary>
+            <param name="key">Api key value (default = "")</param>
+            <param name="secret">Api secret value (default = "")</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.ValidateExchangeConfigured">
+            <summary>
+            Check if the Exchange Repository is ready for trading
+            </summary>
+            <returns>Boolean of validation</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTransactions">
+            <summary>
+            Get Transactions for account
+            </summary>
+            <returns>Collection of Transactions</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetBalance">
+            <summary>
+            Get account balance
+            </summary>
+            <returns>Account object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetOrder(System.String,System.Int64)">
+            <summary>
+            Get order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="orderId">long of orderId</param>
+            <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetOrders(System.String,System.Int32)">
+            <summary>
+            Get all current user order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="limit">Int of orders count to return, default 20</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetOpenOrders(System.String)">
+            <summary>
+            Get all open orders
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetOrderBook(System.String,System.Int32)">
+            <summary>
+            Get Order Book for a pair
+            </summary>
+            <param name="symbol">string of trading pair</param>
+            <param name="limit">Number of orders to return</param>
+            <returns>OrderBook object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.PostTrade(Binance.NetCore.Entities.TradeParams)">
+            <summary>
+            Post/Place a trade
+            </summary>
+            <param name="tradeParams">Trade to place</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.DeleteTrade(Binance.NetCore.Entities.CancelTradeParams)">
+            <summary>
+            Delete/Cancel a trade
+            </summary>
+            <param name="tradeParams">Trade to delete</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetCrytpos">
+            <summary>
+            Get Ticker for all pairs
+            </summary>
+            <returns>Collection of BinanceTick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
+            <summary>
+            Get Candlesticks for a symbol
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.Get24HourStats(System.String)">
+            <summary>
+            Get 24hour ticker statistics
+            </summary>
+            <param name="symbol">Trading symbol (default = "")</param>
+            <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnGet24HourStats">
+            <summary>
+            Get 24hour ticker stats for all trading pairs
+            </summary>
+            <returns>Array of Tick Objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnGet24HourStat(System.String)">
+            <summary>
+            Get 24hour ticker stats for a trading pair
+            </summary>
+            <param name="symbol">Trading symbol</param>
+            <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.WithdrawFunds(System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.WithdrawFunds(System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.WithdrawFunds(System.String,System.String,System.String,System.Decimal)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.WithdrawFunds(System.String,System.String,System.String,System.Decimal,System.String)">
+            <summary>
+            Withdraw funds from exchange
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="description">Description of address</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnPostWithdrawal(System.String,System.String,System.Decimal,System.String,System.String,System.Int64)">
+            <summary>
+            Post a withdrawal
+            </summary>
+            <param name="symbol">Symbol of asset</param>
+            <param name="address">Address to send funds to</param>
+            <param name="amount">Decimal of amount</param>
+            <param name="name">Description of address</param>
+            <param name="addressTag">Secondary address identifier</param>
+            <param name="recvWindow">Recieving window?</param>
+            <returns>Withdrawal response</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetDepositHistory(Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get all deposit history
+            </summary>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetDepositHistory(System.String,Binance.NetCore.Entities.DepositStatus)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetDepositHistory(System.String,Binance.NetCore.Entities.DepositStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnGetDepositHistory(System.String,System.Int32,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Get deposit history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">deposit status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <param name="recvWindow">Recieving window?</param>
+            <returns>Array of deposits</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetWithdrawalHistory(Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get all withdrawal history
+            </summary>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetWithdrawalHistory(System.String,Binance.NetCore.Entities.WithdrawalStatus)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetWithdrawalHistory(System.String,Binance.NetCore.Entities.WithdrawalStatus,System.DateTime,System.DateTime)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnGetWithdrawalHistory(System.String,System.Int32,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Get withdrawal history for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">withdrawal status (default all)</param>
+            <param name="startTime">Start of date range</param>
+            <param name="endTime">End of date range</param>
+            <param name="recvWindow">Recieving window?</param>
+            <returns>Array of withdrawal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetDepositAddress(System.String,System.Nullable{System.Boolean},System.Int64)">
+            <summary>
+            Get deposit address for an asset
+            </summary>
+            <param name="asset">string of asset</param>
+            <param name="status">Account status</param>
+            <param name="recvWindow">Recieving window?</param>
+            <returns>String of address</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetBinanceTime">
+            <summary>
+            Get BinanceTime
+            </summary>
+            <returns>long of timestamp</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetRequestHeaders">
+            <summary>
+            Get Request Headers
+            </summary>
+            <returns>Dictionary of header values</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.CreateUrl(System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Create a CoinEx url
+            </summary>
+            <param name="apiPath">String of path to endpoint</param>
+            <param name="secure">Boolean if secure endpoin (default = true)</param>
+            <param name="parameters">Dictionary of querystring values</param>
+            <param name="testable">Does the endpoint have a test api</param>
+            <returns>String of url</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.CreateUrl(System.String,System.Boolean,System.String[],System.Boolean)">
+            <summary>
+            Create a Binance url
+            </summary>
+            <param name="apiPath">String of path to endpoint</param>
+            <param name="secure">Boolean if secure endpoin (default = true)</param>
+            <param name="queryString">String[] of querystring values</param>
+            <param name="testable">Does the endpoint have a test api</param>
+            <returns>String of url</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.CreateUrl(System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Create a Binance url
+            </summary>
+            <param name="apiPath">String of path to endpoint</param>
+            <param name="secure">Boolean if secure endpoin (default = true)</param>
+            <param name="queryString">String of querystring values</param>
+            <param name="testable">Does the endpoint have a test api</param>
+            <returns>String of url</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetSignature(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Get signature from dictionary of paramters
+            </summary>
+            <param name="parameters">paramters to sign</param>
+            <returns>String of signature</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.StringifyDictionary(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Convert dictionary to querystring
+            </summary>
+            <param name="parameters">Dictionary to convert</param>
+            <returns>String of values</returns>
+        </member>
+    </members>
+</doc>
