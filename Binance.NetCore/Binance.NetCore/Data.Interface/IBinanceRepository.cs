@@ -21,6 +21,32 @@ namespace Binance.NetCore.Data.Interface
         Task<ExchangeInfo> GetExchangeInfo();
 
         /// <summary>
+        /// Get exchange trading pairs
+        /// </summary>
+        /// <returns>Collection of trading pairs</returns>
+        Task<string[]> GetTradingPairs();
+
+        /// <summary>
+        /// Get exchange trading pairs by base pair
+        /// </summary>
+        /// <param name="baseSymbol">Base symbol of trading pair</param>
+        /// <returns>Collection of trading pairs</returns>
+        Task<string[]> GetTradingPairs(string baseSymbol);
+
+        /// <summary>
+        /// Get details of trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair to find</param>
+        /// <returns>Symbol object</returns>
+        Task<Symbol> GetTradingPairDetail(string pair);
+
+        /// <summary>
+        /// Get details of all trading pairs
+        /// </summary>
+        /// <returns>Collection of Symbol objects</returns>
+        Task<Symbol[]> GetTradingPairDetails();
+
+        /// <summary>
         /// Get Transactions for account
         /// </summary>
         /// <returns>Collection of Transactions</returns>

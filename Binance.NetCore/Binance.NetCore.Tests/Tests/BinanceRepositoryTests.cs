@@ -50,6 +50,40 @@ namespace Binance.NetCore.Tests
         }
 
         [Fact]
+        public void GetTradingPairs()
+        {
+            var pairs = _repo.GetTradingPairs().Result;
+
+            Assert.NotNull(pairs);
+        }
+
+        [Fact]
+        public void GetTradingPairsByBase()
+        {
+            var baseSymbol = "BTC";
+            var pairs = _repo.GetTradingPairs(baseSymbol).Result;
+
+            Assert.NotNull(pairs);
+        }
+
+        [Fact]
+        public void GetTradingPairDetail()
+        {
+            var pair = "NANOBTC";
+            var detail = _repo.GetTradingPairDetail(pair).Result;
+
+            Assert.NotNull(detail);
+        }
+
+        [Fact]
+        public void GetTradingPairDetails()
+        {
+            var details = _repo.GetTradingPairDetails().Result;
+
+            Assert.NotNull(details);
+        }
+
+        [Fact]
         public void GetAccountTest()
         {
             var account = _repo.GetBalance();

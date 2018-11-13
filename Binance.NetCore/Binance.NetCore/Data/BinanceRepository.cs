@@ -136,9 +136,71 @@ namespace Binance.NetCore.Data
         {
             string url = CreateUrl("/api/v1/exchangeInfo");
 
-            var response = await _restRepo.GetApiStream<ExchangeInfo>(url, GetRequestHeaders());
+            var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
 
             return response;
+        }
+
+        /// <summary>
+        /// Get exchange trading pairs
+        /// </summary>
+        /// <returns>Collection of trading pairs</returns>
+        public async Task<string[]> GetTradingPairs()
+        {
+            string url = CreateUrl("/api/v1/exchangeInfo");
+
+            var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
+
+            var pairs = response.symbols.Where(s => s.status.Equals("TRADING")).Select(s => s.symbol).ToArray();
+
+            return pairs;
+        }
+
+        /// <summary>
+        /// Get exchange trading pairs by base pair
+        /// </summary>
+        /// <param name="baseSymbol">Base symbol of trading pair</param>
+        /// <returns>Collection of trading pairs</returns>
+        public async Task<string[]> GetTradingPairs(string baseSymbol)
+        {
+            string url = CreateUrl("/api/v1/exchangeInfo");
+
+            var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
+
+            var pairs = response.symbols.Where(s => s.quoteAsset.Equals(baseSymbol) && s.status.Equals("TRADING")).Select(s => s.symbol).ToArray();
+
+            return pairs;
+        }
+
+        /// <summary>
+        /// Get details of trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair to find</param>
+        /// <returns>Symbol object</returns>
+        public async Task<Symbol> GetTradingPairDetail(string pair)
+        {
+            string url = CreateUrl("/api/v1/exchangeInfo");
+
+            var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
+
+            var symbol = response.symbols.Where(s => s.symbol.Equals(pair)).FirstOrDefault();
+
+            return symbol;
+        }
+
+        /// <summary>
+        /// Get details of all trading pairs
+        /// </summary>
+        /// <returns>Collection of Symbol objects</returns>
+        public async Task<Symbol[]> GetTradingPairDetails()
+        {
+            string url = CreateUrl("/api/v1/exchangeInfo");
+
+            var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
+
+            var symbols = response.symbols;
+
+            return symbols;
         }
 
         /// <summary>
