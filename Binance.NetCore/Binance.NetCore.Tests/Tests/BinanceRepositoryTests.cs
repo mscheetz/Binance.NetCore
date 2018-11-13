@@ -42,6 +42,14 @@ namespace Binance.NetCore.Tests
         }
 
         [Fact]
+        public void GetExchangeInfo()
+        {
+            var info = _repo.GetExchangeInfo().Result;
+
+            Assert.NotNull(info);
+        }
+
+        [Fact]
         public void GetAccountTest()
         {
             var account = _repo.GetBalance();

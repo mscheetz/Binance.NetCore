@@ -15,6 +15,12 @@ namespace Binance.NetCore.Data.Interface
         bool ValidateExchangeConfigured();
 
         /// <summary>
+        /// Get exchange and symbol information
+        /// </summary>
+        /// <returns>ExchangeInfo object</returns>
+        Task<ExchangeInfo> GetExchangeInfo();
+
+        /// <summary>
         /// Get Transactions for account
         /// </summary>
         /// <returns>Collection of Transactions</returns>

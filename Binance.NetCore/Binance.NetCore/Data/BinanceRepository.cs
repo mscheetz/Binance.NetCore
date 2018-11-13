@@ -129,6 +129,19 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
+        /// Get exchange and symbol information
+        /// </summary>
+        /// <returns>ExchangeInfo object</returns>
+        public async Task<ExchangeInfo> GetExchangeInfo()
+        {
+            string url = CreateUrl("/api/v1/exchangeInfo");
+
+            var response = await _restRepo.GetApiStream<ExchangeInfo>(url, GetRequestHeaders());
+
+            return response;
+        }
+
+        /// <summary>
         /// Get Transactions for account
         /// </summary>
         /// <returns>Collection of Transactions</returns>
