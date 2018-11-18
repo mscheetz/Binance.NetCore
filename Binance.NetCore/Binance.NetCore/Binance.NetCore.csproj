@@ -7,10 +7,10 @@
     <RepositoryUrl>https://github.com/mscheetz/Binance.NetCore</RepositoryUrl>
     <Copyright>2018 Matt Scheetz</Copyright>
     <Description>Api library for accessing the Binance exchange Api built on .Net Standard</Description>
-    <PackageReleaseNotes>Add trading pair endpoints and renamed paramters</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed order endpoints</PackageReleaseNotes>
     <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
     <IsPackable>true</IsPackable>
-    <Version>1.5.2</Version>
+    <Version>1.5.3</Version>
     <PackageLicenseUrl>https://github.com/mscheetz/Binance.NetCore/blob/master/LICENSE</PackageLicenseUrl>
     <PackageId>Binance.NetCore</PackageId>
     <Product>Binance.NetStd</Product>
@@ -20,6 +20,10 @@
     <DocumentationFile>C:\Source\Git\Binance.NetCore\Binance.NetCore\Binance.NetCore\Binance.NetCore.xml</DocumentationFile>
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\RESTRepository.cs~RF2cad51db.TMP" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DateTimeHelpers" Version="1.3.0" />

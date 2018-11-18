@@ -184,6 +184,31 @@ namespace Binance.NetCore
         }
 
         /// <summary>
+        /// Place a limit order
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="iceburgQuantity">Iceburg quantity</param>
+        /// <returns>TradeResponse object</returns>
+        public TradeResponse LimitOrder(string pair, Side side, decimal quantity, decimal price, decimal iceburgQuantity)
+        {
+            var tradeParams = new TradeParams
+            {
+                icebergQty = iceburgQuantity,
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = pair,
+                timeInForce = TimeInForce.GTC.ToString(),
+                type = OrderType.LIMIT.ToString()
+            };
+
+            return _repository.PostTrade(tradeParams).Result;
+        }
+
+        /// <summary>
         /// Place a limit maker order
         /// </summary>
         /// <param name="pair">Trading pair</param>
@@ -218,6 +243,32 @@ namespace Binance.NetCore
         {
             var tradeParams = new TradeParams
             {
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                symbol = pair,
+                timeInForce = timeInForce.ToString(),
+                type = OrderType.LIMIT.ToString()
+            };
+
+            return _repository.PostTrade(tradeParams).Result;
+        }
+
+        /// <summary>
+        /// Place a limit order
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="timeInForce">Time in force</param>
+        /// <param name="iceburgQuantity">Iceburg quantity</param>
+        /// <returns>TradeResponse object</returns>
+        public TradeResponse LimitOrder(string pair, Side side, decimal quantity, decimal price, TimeInForce timeInForce, decimal iceburgQuantity)
+        {
+            var tradeParams = new TradeParams
+            {
+                icebergQty = iceburgQuantity,
                 price = price,
                 quantity = quantity,
                 side = side.ToString(),
@@ -288,6 +339,32 @@ namespace Binance.NetCore
                 stopPrice = stopPrice,
                 symbol = pair,
                 type = OrderType.STOP_LOSS.ToString()
+            };
+
+            return _repository.PostTrade(tradeParams).Result;
+        }
+
+        /// <summary>
+        /// Place a stop loss
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="stopPrice">Decimal of stop price</param>
+        /// <param name="iceburgQuantity">Iceburg quantity</param>
+        /// <returns>TradeResponse object</returns>
+        public TradeResponse StopLossLimit(string pair, Side side, decimal quantity, decimal price, decimal stopPrice, decimal iceburgQuantity)
+        {
+            var tradeParams = new TradeParams
+            {
+                icebergQty = iceburgQuantity,
+                quantity = quantity,
+                price = price,
+                side = side.ToString(),
+                stopPrice = stopPrice,
+                symbol = pair,
+                type = OrderType.STOP_LOSS_LIMIT.ToString()
             };
 
             return _repository.PostTrade(tradeParams).Result;
@@ -368,17 +445,48 @@ namespace Binance.NetCore
         }
 
         /// <summary>
+        /// Place a take profit limit order
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="side">Side of trade (Buy/Sell)</param>
+        /// <param name="quantity">Decimal of quantity</param>
+        /// <param name="price">Decimal of price</param>
+        /// <param name="stopPrice">Decimal of stop price</param>
+        /// <param name="timeInForce">Time in Force</param>
+        /// <param name="iceburgQuantity">Iceburg quantity</param>
+        /// <returns>TradeResponse object</returns>
+        public TradeResponse TakeProfitLimit(string pair, Side side, decimal quantity, decimal price, decimal stopPrice, TimeInForce timeInForce, decimal iceburgQuantity)
+        {
+            var tradeParams = new TradeParams
+            {
+                icebergQty = iceburgQuantity,
+                price = price,
+                quantity = quantity,
+                side = side.ToString(),
+                stopPrice = stopPrice,
+                symbol = pair,
+                timeInForce = timeInForce.ToString(),
+                type = OrderType.TAKE_PROFIT_LIMIT.ToString()
+            };
+
+            return _repository.PostTrade(tradeParams).Result;
+        }
+
+        /// <summary>
         /// Post/Place a trade
         /// </summary>
         /// <param name="tradeParams">Trade to place</param>
         /// <returns>TradeResponse object</returns>
-        public TradeResponse PostTrade(string pair, Side side, decimal quantity, decimal price, OrderType type, TimeInForce timeInForce )
+        public TradeResponse PostTrade(string pair, Side side, decimal quantity, decimal price, OrderType type
+            , TimeInForce timeInForce = TimeInForce.GTC, decimal stopPrice = 0.0M, decimal iceburgQuantity = 0.0M )
         {
             var tradeParams = new TradeParams
             {
+                icebergQty = iceburgQuantity,
                 price = price,
                 quantity = quantity,
                 side = side.ToString(),
+                stopPrice = stopPrice,
                 symbol = pair,
                 timeInForce = timeInForce.ToString(),
                 type = type.ToString()
