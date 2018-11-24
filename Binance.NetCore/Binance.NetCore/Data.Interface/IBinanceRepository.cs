@@ -126,6 +126,19 @@ namespace Binance.NetCore.Data.Interface
         Task<Tick[]> Get24HourStats(string symbol = "");
 
         /// <summary>
+        /// Get latest price for all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        Task<Ticker[]> GetTickers();
+
+        /// <summary>
+        /// Get latest price for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>A Ticker object</returns>
+        Task<Ticker> GetTicker(string pair);
+
+        /// <summary>
         /// Get BinanceTime
         /// </summary>
         /// <returns>long of timestamp</returns>

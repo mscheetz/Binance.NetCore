@@ -545,6 +545,25 @@ namespace Binance.NetCore
         {
             return _repository.Get24HourStats(pair).Result;
         }
+               
+        /// <summary>
+        /// Get latest price for all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        public Ticker[] GetTickers()
+        {
+            return _repository.GetTickers().Result;
+        }
+
+        /// <summary>
+        /// Get latest price for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>A Ticker object</returns>
+        public Ticker GetTicker(string pair)
+        {
+            return _repository.GetTicker(pair).Result;
+        }
 
         /// <summary>
         /// Withdraw funds from exchange
@@ -1069,6 +1088,25 @@ namespace Binance.NetCore
         public async Task<Tick[]> Get24HourStatsAsync(string pair = "")
         {
             return await _repository.Get24HourStats(pair);
+        }
+
+        /// <summary>
+        /// Get latest price for all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        public async Task<Ticker[]> GetTickersAsync()
+        {
+            return await _repository.GetTickers();
+        }
+
+        /// <summary>
+        /// Get latest price for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>A Ticker object</returns>
+        public async Task<Ticker> GetTickerAsync(string pair)
+        {
+            return await _repository.GetTicker(pair);
         }
 
         /// <summary>

@@ -494,6 +494,61 @@ namespace Binance.NetCore.Data
             }
         }
 
+        /// <summary>
+        /// Get latest price for all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        public async Task<Ticker[]> GetTickers()
+        {
+            return await OnGetTicker(string.Empty);
+        }
+
+        /// <summary>
+        /// Get latest price for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>A Ticker object</returns>
+        public async Task<Ticker> GetTicker(string pair)
+        {
+            var tickers = await OnGetTicker(pair);
+
+            return tickers[0];
+        }
+
+        /// <summary>
+        /// Get latest price for one or all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        private async Task<Ticker[]> OnGetTicker(string pair)
+        {
+            var endpoint = "/api/v1/ticker/price";
+            var queryString = new Dictionary<string, object>();
+            queryString.Add("symbol", pair);
+
+            var url = string.IsNullOrEmpty(pair) ? CreateUrl(endpoint, false) : CreateUrl(endpoint, false, queryString);
+
+            try
+            {
+                Ticker[] response;
+                if (string.IsNullOrEmpty(pair))
+                {
+                    var ticker = await _restRepo.GetApiStream<Ticker>(url);
+
+                    response = new Ticker[] { ticker };
+                }
+                else
+                {
+                    response = await _restRepo.GetApiStream<Ticker[]>(url);
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         #region WAPI
 
         /// <summary>
