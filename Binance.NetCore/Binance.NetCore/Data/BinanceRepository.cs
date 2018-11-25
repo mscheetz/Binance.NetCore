@@ -530,7 +530,7 @@ namespace Binance.NetCore.Data
             try
             {
                 Ticker[] response;
-                if (string.IsNullOrEmpty(pair))
+                if (!string.IsNullOrEmpty(pair))
                 {
                     var ticker = await _restRepo.GetApiStream<Ticker>(url);
 

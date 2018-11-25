@@ -84,6 +84,23 @@ namespace Binance.NetCore.Tests
         }
 
         [Fact]
+        public void GetTickerTest()
+        {
+            var pair = "XLMBTC";
+            var ticker = _repo.GetTicker(pair).Result;
+
+            Assert.NotNull(ticker);
+        }
+
+        [Fact]
+        public void GetTickersTest()
+        {
+            var tickers = _repo.GetTickers().Result;
+
+            Assert.NotNull(tickers);
+        }
+
+        [Fact]
         public void GetAccountTest()
         {
             var account = _repo.GetBalance();

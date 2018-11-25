@@ -7,10 +7,10 @@
     <RepositoryUrl>https://github.com/mscheetz/Binance.NetCore</RepositoryUrl>
     <Copyright>2018 Matt Scheetz</Copyright>
     <Description>Api library for accessing the Binance exchange Api built on .Net Standard</Description>
-    <PackageReleaseNotes>Fixed order endpoints</PackageReleaseNotes>
+    <PackageReleaseNotes>Get ticker for one or all pairs</PackageReleaseNotes>
     <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
     <IsPackable>true</IsPackable>
-    <Version>1.5.3</Version>
+    <Version>1.5.4</Version>
     <PackageLicenseUrl>https://github.com/mscheetz/Binance.NetCore/blob/master/LICENSE</PackageLicenseUrl>
     <PackageId>Binance.NetCore</PackageId>
     <Product>Binance.NetStd</Product>
