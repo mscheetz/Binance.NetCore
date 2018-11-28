@@ -134,7 +134,7 @@ namespace Binance.NetCore.Data
         /// <returns>ExchangeInfo object</returns>
         public async Task<ExchangeInfo> GetExchangeInfo()
         {
-            string url = CreateUrl("/api/v1/exchangeInfo");
+            string url = CreateUrl("/api/v1/exchangeInfo", false);
 
             var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
 
@@ -147,7 +147,7 @@ namespace Binance.NetCore.Data
         /// <returns>Collection of trading pairs</returns>
         public async Task<string[]> GetTradingPairs()
         {
-            string url = CreateUrl("/api/v1/exchangeInfo");
+            string url = CreateUrl("/api/v1/exchangeInfo", false);
 
             var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
 
@@ -163,7 +163,7 @@ namespace Binance.NetCore.Data
         /// <returns>Collection of trading pairs</returns>
         public async Task<string[]> GetTradingPairs(string baseSymbol)
         {
-            string url = CreateUrl("/api/v1/exchangeInfo");
+            string url = CreateUrl("/api/v1/exchangeInfo", false);
 
             var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
 
@@ -179,7 +179,7 @@ namespace Binance.NetCore.Data
         /// <returns>Symbol object</returns>
         public async Task<Symbol> GetTradingPairDetail(string pair)
         {
-            string url = CreateUrl("/api/v1/exchangeInfo");
+            string url = CreateUrl("/api/v1/exchangeInfo", false);
 
             var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
 
@@ -194,7 +194,7 @@ namespace Binance.NetCore.Data
         /// <returns>Collection of Symbol objects</returns>
         public async Task<Symbol[]> GetTradingPairDetails()
         {
-            string url = CreateUrl("/api/v1/exchangeInfo");
+            string url = CreateUrl("/api/v1/exchangeInfo", false);
 
             var response = await _restRepo.GetApiStream<ExchangeInfo>(url);
 

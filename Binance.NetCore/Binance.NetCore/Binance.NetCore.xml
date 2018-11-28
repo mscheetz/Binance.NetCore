@@ -28,11 +28,37 @@
             </summary>
             <returns>Boolean of validation</returns>
         </member>
-        <member name="M:Binance.NetCore.BinanceApiClient.GetTransactions">
+        <member name="M:Binance.NetCore.BinanceApiClient.GetExchangeInfo">
             <summary>
-            Get Transactions for account
+            Get exchange and symbol information
             </summary>
-            <returns>Collection of Transactions</returns>
+            <returns>ExchangeInfo object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairs">
+            <summary>
+            Get exchange trading pairs
+            </summary>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairs(System.String)">
+            <summary>
+            Get exchange trading pairs by base pair
+            </summary>
+            <param name="baseSymbol">Base symbol of trading pair</param>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairDetail(System.String)">
+            <summary>
+            Get details of trading pair
+            </summary>
+            <param name="pair">Trading pair to find</param>
+            <returns>Symbol object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairDetails">
+            <summary>
+            Get details of all trading pairs
+            </summary>
+            <returns>Collection of Symbol objects</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetBalance">
             <summary>
@@ -44,30 +70,46 @@
             <summary>
             Get order information
             </summary>
-            <param name="symbol">string of symbol</param>
+            <param name="pair">string of pair</param>
             <param name="orderId">long of orderId</param>
             <returns>OrderResponse object</returns>
         </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrders(System.String)">
+            <summary>
+            Get all order information Async
+            </summary>
+            <param name="pair">string of pair</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetOrders(System.String,System.Int32)">
             <summary>
-            Get all order information
+            Get all order information Async
             </summary>
-            <param name="symbol">string of symbol</param>
-            <param name="limit">Int of orders count to return, default 20</param>
+            <param name="pair">string of pair</param>
+            <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Get all order information Async
+            </summary>
+            <param name="pair">string of pair</param>
+            <param name="fromDate">from date</param>
+            <param name="toDate">to date</param>
             <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetOpenOrders(System.String)">
             <summary>
             Get all open orders
             </summary>
-            <param name="symbol">string of symbol</param>
+            <param name="pair">string of pair</param>
             <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetOrderBook(System.String,System.Int32)">
             <summary>
             Get Order Book for a pair
             </summary>
-            <param name="symbol">string of trading pair</param>
+            <param name="pair">string of trading pair</param>
             <param name="limit">Number of orders to return</param>
             <returns>OrderBook object</returns>
         </member>
@@ -75,17 +117,28 @@
             <summary>
             Place a limit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Place a limit order
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="iceburgQuantity">Iceburg quantity</param>
             <returns>TradeResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.LimitMakerOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal)">
             <summary>
             Place a limit maker order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -95,18 +148,30 @@
             <summary>
             Place a limit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
             <param name="timeInForce">Time in force</param>
             <returns>TradeResponse object</returns>
         </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.LimitOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce,System.Decimal)">
+            <summary>
+            Place a limit order
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="timeInForce">Time in force</param>
+            <param name="iceburgQuantity">Iceburg quantity</param>
+            <returns>TradeResponse object</returns>
+        </member>
         <member name="M:Binance.NetCore.BinanceApiClient.MarketOrder(System.String,Binance.NetCore.Entities.Side,System.Decimal)">
             <summary>
             Place a market order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <returns>TradeResponse object</returns>
@@ -115,7 +180,7 @@
             <summary>
             Place a market order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="timeInForce">Time in force</param>
@@ -125,17 +190,29 @@
             <summary>
             Place a stop loss
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="stopPrice">Decimal of stop price</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.StopLossLimit(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            Place a stop loss
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <param name="iceburgQuantity">Iceburg quantity</param>
             <returns>TradeResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.StopLossLimit(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce)">
             <summary>
             Place a stop loss limit
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -147,7 +224,7 @@
             <summary>
             Place a take profit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="stopPrice">Decimal of stop price</param>
@@ -157,7 +234,7 @@
             <summary>
             Place a take profit limit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -165,7 +242,20 @@
             <param name="timeInForce">Time in Force</param>
             <returns>TradeResponse object</returns>
         </member>
-        <member name="M:Binance.NetCore.BinanceApiClient.PostTrade(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.OrderType,Binance.NetCore.Entities.TimeInForce)">
+        <member name="M:Binance.NetCore.BinanceApiClient.TakeProfitLimit(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,System.Decimal,Binance.NetCore.Entities.TimeInForce,System.Decimal)">
+            <summary>
+            Place a take profit limit order
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="side">Side of trade (Buy/Sell)</param>
+            <param name="quantity">Decimal of quantity</param>
+            <param name="price">Decimal of price</param>
+            <param name="stopPrice">Decimal of stop price</param>
+            <param name="timeInForce">Time in Force</param>
+            <param name="iceburgQuantity">Iceburg quantity</param>
+            <returns>TradeResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.PostTrade(System.String,Binance.NetCore.Entities.Side,System.Decimal,System.Decimal,Binance.NetCore.Entities.OrderType,Binance.NetCore.Entities.TimeInForce,System.Decimal,System.Decimal)">
             <summary>
             Post/Place a trade
             </summary>
@@ -194,9 +284,9 @@
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
             <summary>
-            Get Candlesticks for a symbol
+            Get Candlesticks for a pair
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="interval">Time interval</param>
             <param name="limit">Time limit</param>
             <returns>Array of Candlestick objects</returns>
@@ -205,8 +295,21 @@
             <summary>
             Get 24hour ticker statistics
             </summary>
-            <param name="symbol">Trading symbol (default = "")</param>
+            <param name="pair">Trading pair (default = "")</param>
             <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTickers">
+            <summary>
+            Get latest price for all trading pairs
+            </summary>
+            <returns>Array of Tickers</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTicker(System.String)">
+            <summary>
+            Get latest price for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>A Ticker object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFunds(System.String,System.String,System.Decimal)">
             <summary>
@@ -311,11 +414,37 @@
             </summary>
             <returns>long of timestamp</returns>
         </member>
-        <member name="M:Binance.NetCore.BinanceApiClient.GetTransactionsAsync">
+        <member name="M:Binance.NetCore.BinanceApiClient.GetExchangeInfoAsync">
             <summary>
-            Get Transactions for account Async
+            Get exchange and symbol information
             </summary>
-            <returns>Collection of Transactions</returns>
+            <returns>ExchangeInfo object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairsAsync">
+            <summary>
+            Get exchange trading pairs
+            </summary>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairsAsync(System.String)">
+            <summary>
+            Get exchange trading pairs by base pair
+            </summary>
+            <param name="baseSymbol">Base symbol of trading pair</param>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairDetailAsync(System.String)">
+            <summary>
+            Get details of trading pair
+            </summary>
+            <param name="pair">Trading pair to find</param>
+            <returns>Symbol object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTradingPairDetailsAsync">
+            <summary>
+            Get details of all trading pairs
+            </summary>
+            <returns>Collection of Symbol objects</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetBalanceAsync">
             <summary>
@@ -327,30 +456,46 @@
             <summary>
             Get order information Async
             </summary>
-            <param name="symbol">string of symbol</param>
+            <param name="pair">string of pair</param>
             <param name="orderId">long of orderId</param>
             <returns>OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrdersAsync(System.String)">
+            <summary>
+            Get all order information Async
+            </summary>
+            <param name="pair">string of pair</param>
+            <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetOrdersAsync(System.String,System.Int32)">
             <summary>
             Get all order information Async
             </summary>
-            <param name="symbol">string of symbol</param>
-            <param name="limit">Int of orders count to return, default 20</param>
+            <param name="pair">string of pair</param>
+            <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Get all order information Async
+            </summary>
+            <param name="pair">string of pair</param>
+            <param name="fromDate">from date</param>
+            <param name="toDate">to date</param>
             <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetOpenOrdersAsync(System.String)">
             <summary>
             Get all open orders Async
             </summary>
-            <param name="symbol">string of symbol</param>
+            <param name="pair">string of pair</param>
             <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetOrderBookAsync(System.String,System.Int32)">
             <summary>
             Get Order Book for a pair Async
             </summary>
-            <param name="symbol">string of trading pair</param>
+            <param name="pair">string of trading pair</param>
             <param name="limit">Number of orders to return</param>
             <returns>OrderBook object</returns>
         </member>
@@ -358,7 +503,7 @@
             <summary>
             Place a limit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -368,7 +513,7 @@
             <summary>
             Place a limit maker order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -378,7 +523,7 @@
             <summary>
             Place a limit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -389,7 +534,7 @@
             <summary>
             Place a market order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <returns>TradeResponse object</returns>
@@ -398,7 +543,7 @@
             <summary>
             Place a market order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="timeInForce">Time in force</param>
@@ -408,7 +553,7 @@
             <summary>
             Place a stop loss
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="stopPrice">Decimal of stop price</param>
@@ -418,7 +563,7 @@
             <summary>
             Place a stop loss limit
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -430,7 +575,7 @@
             <summary>
             Place a take profit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="stopPrice">Decimal of stop price</param>
@@ -440,7 +585,7 @@
             <summary>
             Place a take profit limit order
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="side">Side of trade (Buy/Sell)</param>
             <param name="quantity">Decimal of quantity</param>
             <param name="price">Decimal of price</param>
@@ -477,9 +622,9 @@
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
             <summary>
-            Get Candlesticks for a symbol Async
+            Get Candlesticks for a pair Async
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading pair</param>
             <param name="interval">Time interval</param>
             <param name="limit">Time limit</param>
             <returns>Array of Candlestick objects</returns>
@@ -488,8 +633,21 @@
             <summary>
             Get 24hour ticker statistics Async
             </summary>
-            <param name="symbol">Trading symbol (default = "")</param>
+            <param name="pair">Trading pair (default = "")</param>
             <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTickersAsync">
+            <summary>
+            Get latest price for all trading pairs
+            </summary>
+            <returns>Array of Tickers</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetTickerAsync(System.String)">
+            <summary>
+            Get latest price for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>A Ticker object</returns>
         </member>
         <member name="M:Binance.NetCore.BinanceApiClient.WithdrawFundsAsync(System.String,System.String,System.Decimal)">
             <summary>
@@ -609,11 +767,37 @@
             </summary>
             <returns>Boolean of validation</returns>
         </member>
-        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTransactions">
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetExchangeInfo">
             <summary>
-            Get Transactions for account
+            Get exchange and symbol information
             </summary>
-            <returns>Collection of Transactions</returns>
+            <returns>ExchangeInfo object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTradingPairs">
+            <summary>
+            Get exchange trading pairs
+            </summary>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTradingPairs(System.String)">
+            <summary>
+            Get exchange trading pairs by base pair
+            </summary>
+            <param name="baseSymbol">Base symbol of trading pair</param>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTradingPairDetail(System.String)">
+            <summary>
+            Get details of trading pair
+            </summary>
+            <param name="pair">Trading pair to find</param>
+            <returns>Symbol object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTradingPairDetails">
+            <summary>
+            Get details of all trading pairs
+            </summary>
+            <returns>Collection of Symbol objects</returns>
         </member>
         <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetBalance">
             <summary>
@@ -629,12 +813,28 @@
             <param name="orderId">long of orderId</param>
             <returns>OrderResponse object</returns>
         </member>
-        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrders(System.String,System.Int32)">
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrders(System.String)">
             <summary>
-            Get all order information
+            Get most recent current user order information
             </summary>
             <param name="symbol">string of symbol</param>
-            <param name="limit">Int of orders count to return, default 20</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrders(System.String,System.Int32)">
+            <summary>
+            Get all current user order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Get all current user order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="fromDate">from date</param>
+            <param name="toDate">to date</param>
             <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetOpenOrders(System.String)">
@@ -687,6 +887,19 @@
             </summary>
             <param name="symbol">Trading symbol (default = "")</param>
             <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTickers">
+            <summary>
+            Get latest price for all trading pairs
+            </summary>
+            <returns>Array of Tickers</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetTicker(System.String)">
+            <summary>
+            Get latest price for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>A Ticker object</returns>
         </member>
         <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetBinanceTime">
             <summary>
@@ -839,11 +1052,37 @@
             </summary>
             <returns>Boolean of validation</returns>
         </member>
-        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTransactions">
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetExchangeInfo">
             <summary>
-            Get Transactions for account
+            Get exchange and symbol information
             </summary>
-            <returns>Collection of Transactions</returns>
+            <returns>ExchangeInfo object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTradingPairs">
+            <summary>
+            Get exchange trading pairs
+            </summary>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTradingPairs(System.String)">
+            <summary>
+            Get exchange trading pairs by base pair
+            </summary>
+            <param name="baseSymbol">Base symbol of trading pair</param>
+            <returns>Collection of trading pairs</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTradingPairDetail(System.String)">
+            <summary>
+            Get details of trading pair
+            </summary>
+            <param name="pair">Trading pair to find</param>
+            <returns>Symbol object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTradingPairDetails">
+            <summary>
+            Get details of all trading pairs
+            </summary>
+            <returns>Collection of Symbol objects</returns>
         </member>
         <member name="M:Binance.NetCore.Data.BinanceRepository.GetBalance">
             <summary>
@@ -859,12 +1098,38 @@
             <param name="orderId">long of orderId</param>
             <returns>OrderResponse object</returns>
         </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetOrders(System.String)">
+            <summary>
+            Get most recent current user order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
         <member name="M:Binance.NetCore.Data.BinanceRepository.GetOrders(System.String,System.Int32)">
             <summary>
             Get all current user order information
             </summary>
             <param name="symbol">string of symbol</param>
-            <param name="limit">Int of orders count to return, default 20</param>
+            <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetOrders(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Get all current user order information
+            </summary>
+            <param name="symbol">string of symbol</param>
+            <param name="fromDate">from date</param>
+            <param name="toDate">to date</param>
+            <returns>Array OrderResponse object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnGetOrders(System.String,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Get all current user order information
+            </summary>
+            <param name="pair">string of symbol</param>
+            <param name="startTime">from date</param>
+            <param name="endTime">to date</param>
+            <param name="limit">records to return</param>
             <returns>Array OrderResponse object</returns>
         </member>
         <member name="M:Binance.NetCore.Data.BinanceRepository.GetOpenOrders(System.String)">
@@ -930,6 +1195,25 @@
             </summary>
             <param name="symbol">Trading symbol</param>
             <returns>Array of Tick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTickers">
+            <summary>
+            Get latest price for all trading pairs
+            </summary>
+            <returns>Array of Tickers</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetTicker(System.String)">
+            <summary>
+            Get latest price for a trading pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <returns>A Ticker object</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.OnGetTicker(System.String)">
+            <summary>
+            Get latest price for one or all trading pairs
+            </summary>
+            <returns>Array of Tickers</returns>
         </member>
         <member name="M:Binance.NetCore.Data.BinanceRepository.WithdrawFunds(System.String,System.String,System.Decimal)">
             <summary>
@@ -1119,6 +1403,60 @@
             </summary>
             <param name="parameters">Dictionary to convert</param>
             <returns>String of values</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.DecimalToString(System.Decimal)">
+            <summary>
+            Cultural neutral decimal converter
+            </summary>
+            <param name="decimalVal">Decimal to convert</param>
+            <returns>String of decimal</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.TradeParamsValidator(Binance.NetCore.Entities.TradeParams)">
+            <summary>
+            Validate trade parameters
+            </summary>
+            <param name="tradeParams">TradeParams object to validate</param>
+            <returns>True if valid</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceWSRepository.#ctor">
+            <summary>
+            Constructor for non-signed endpoints
+            </summary>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceWSRepository.#ctor(System.String,System.String)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api secret</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceWSRepository.#ctor(System.String)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="configPath">String of path to configuration file</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceWSRepository.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="apiKey">Api key</param>
+            <param name="apiSecret">Api secret</param>
+            <param name="test">Testing api?</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceWSRepository.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor for signed endpoints
+            </summary>
+            <param name="configPath">String of path to configuration file</param>
+            <param name="test">Testing api?</param>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceWSRepository.LoadRepository(System.String,System.String)">
+            <summary>
+            Load repository
+            </summary>
+            <param name="key">Api key value (default = "")</param>
+            <param name="secret">Api secret value (default = "")</param>
         </member>
     </members>
 </doc>
