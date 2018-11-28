@@ -86,9 +86,17 @@ namespace Binance.NetCore.Tests
         [Fact]
         public void GetAccountTest()
         {
-            var account = _repo.GetBalance();
+            var account = _repo.GetBalance().Result;
 
-            Assert.NotNull(account.Result);
+            Assert.NotNull(account);
+        }
+
+        [Fact]
+        public void GetCryptosTest()
+        {
+            var cryptos = _repo.GetCrytpos().Result;
+
+            Assert.NotNull(cryptos);
         }
 
         [Fact]

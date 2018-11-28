@@ -204,19 +204,6 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
-        /// Get Transactions for account
-        /// </summary>
-        /// <returns>Collection of Transactions</returns>
-        public async Task<IEnumerable<Transaction>> GetTransactions()
-        {
-            string url = CreateUrl("/api/v3/allOrders");
-
-            var response = await _restRepo.GetApiStream<IEnumerable<Transaction>>(url, GetRequestHeaders());
-
-            return response;
-        }
-
-        /// <summary>
         /// Get account balance
         /// </summary>
         /// <returns>Account object</returns>
@@ -258,18 +245,67 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
+        /// Get most recent current user order information
+        /// </summary>
+        /// <param name="symbol">string of symbol</param>
+        /// <returns>Array OrderResponse object</returns>
+        public async Task<OrderResponse[]> GetOrders(string symbol)
+        {
+            return await OnGetOrders(symbol, 0, 0, 500);
+        }
+
+        /// <summary>
         /// Get all current user order information
         /// </summary>
         /// <param name="symbol">string of symbol</param>
-        /// <param name="limit">Int of orders count to return, default 20</param>
+        /// <param name="limit">Int of orders count to return, default 500 / max 1000</param>
         /// <returns>Array OrderResponse object</returns>
-        public async Task<OrderResponse[]> GetOrders(string symbol, int limit = 20)
+        public async Task<OrderResponse[]> GetOrders(string symbol, int limit = 500)
         {
-            var queryString = new List<string>
-            {
-                $"symbol={symbol}",
-                $"limit={limit}"
-            };
+            limit = limit > 1000 ? 1000 : limit;
+
+            return await OnGetOrders(symbol, 0, 0, limit);
+        }
+
+        /// <summary>
+        /// Get all current user order information
+        /// </summary>
+        /// <param name="symbol">string of symbol</param>
+        /// <param name="fromDate">from date</param>
+        /// <param name="toDate">to date</param>
+        /// <returns>Array OrderResponse object</returns>
+        public async Task<OrderResponse[]> GetOrders(string symbol, DateTime? fromDate, DateTime? toDate)
+        {
+            long startTime = 0;
+            long endTime = 0;
+            if (fromDate != null)
+                startTime = _dtHelper.LocalTimetoUnixTimeMilliseconds((DateTime)fromDate);
+            if (toDate != null)
+                endTime = _dtHelper.LocalTimetoUnixTimeMilliseconds((DateTime)toDate);
+
+            return await OnGetOrders(symbol, startTime, endTime);
+        }
+
+        /// <summary>
+        /// Get all current user order information
+        /// </summary>
+        /// <param name="pair">string of symbol</param>
+        /// <param name="startTime">from date</param>
+        /// <param name="endTime">to date</param>
+        /// <param name="limit">records to return</param>
+        /// <returns>Array OrderResponse object</returns>
+        private async Task<OrderResponse[]> OnGetOrders(string pair, long startTime, long endTime, int limit = 500)
+        {
+            var queryString = new List<string>();
+
+            if (!string.IsNullOrEmpty(pair))
+                queryString.Add($"symbol={pair}");
+            if (limit != 500)
+                queryString.Add($"limit={limit}");
+            if (startTime > 0)
+                queryString.Add($"startTime={startTime}");
+            if (endTime > 0)
+                queryString.Add($"endTime={endTime}");
 
             string url = CreateUrl($"/api/v3/allOrders", true, queryString.ToArray());
 
@@ -375,7 +411,9 @@ namespace Binance.NetCore.Data
         /// <returns>Collection of BinanceTick objects</returns>
         public async Task<IEnumerable<Tick>> GetCrytpos()
         {
-            string url = "v1/open/tick";
+            throw new Exception("This api is not supported by Binance anymore. Use Get24HourStats() endpoint instead.");
+
+            string url = CreateUrl("/v1/open/tick", false);
 
             var response = await _restRepo.GetApiStream<List<Tick>>(url);
 
@@ -848,8 +886,8 @@ namespace Binance.NetCore.Data
                 return url;
             }
 
-            if (string.IsNullOrEmpty(queryString))
-                return baseUrl + apiPath;
+            //if (string.IsNullOrEmpty(queryString))
+            //    return baseUrl + apiPath;
 
             var timestamp = _dtHelper.UTCtoUnixTimeMilliseconds();
             var timeStampQS = $"timestamp={timestamp}";

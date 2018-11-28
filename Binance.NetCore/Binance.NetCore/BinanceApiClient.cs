@@ -100,15 +100,6 @@ namespace Binance.NetCore
         }
 
         /// <summary>
-        /// Get Transactions for account
-        /// </summary>
-        /// <returns>Collection of Transactions</returns>
-        public IEnumerable<Transaction> GetTransactions()
-        {
-            return _repository.GetTransactions().Result;
-        }
-
-        /// <summary>
         /// Get account balance
         /// </summary>
         /// <returns>Account object</returns>
@@ -129,14 +120,36 @@ namespace Binance.NetCore
         }
 
         /// <summary>
-        /// Get all order information
+        /// Get all order information Async
         /// </summary>
         /// <param name="pair">string of pair</param>
-        /// <param name="limit">Int of orders count to return, default 20</param>
         /// <returns>Array OrderResponse object</returns>
-        public OrderResponse[] GetOrders(string pair, int limit = 20)
+        public OrderResponse[] GetOrders(string pair)
+        {
+            return _repository.GetOrders(pair).Result;
+        }
+
+        /// <summary>
+        /// Get all order information Async
+        /// </summary>
+        /// <param name="pair">string of pair</param>
+        /// <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+        /// <returns>Array OrderResponse object</returns>
+        public OrderResponse[] GetOrders(string pair, int limit = 500)
         {
             return _repository.GetOrders(pair, limit).Result;
+        }
+
+        /// <summary>
+        /// Get all order information Async
+        /// </summary>
+        /// <param name="pair">string of pair</param>
+        /// <param name="fromDate">from date</param>
+        /// <param name="toDate">to date</param>
+        /// <returns>Array OrderResponse object</returns>
+        public OrderResponse[] GetOrders(string pair, DateTime? fromDate, DateTime? toDate)
+        {
+            return _repository.GetOrders(pair, fromDate, toDate).Result;
         }
 
         /// <summary>
@@ -625,15 +638,6 @@ namespace Binance.NetCore
         }
 
         /// <summary>
-        /// Get Transactions for account Async
-        /// </summary>
-        /// <returns>Collection of Transactions</returns>
-        public async Task<IEnumerable<Transaction>> GetTransactionsAsync()
-        {
-            return await _repository.GetTransactions();
-        }
-
-        /// <summary>
         /// Get account balance Async
         /// </summary>
         /// <returns>Account object</returns>
@@ -657,11 +661,33 @@ namespace Binance.NetCore
         /// Get all order information Async
         /// </summary>
         /// <param name="pair">string of pair</param>
-        /// <param name="limit">Int of orders count to return, default 20</param>
         /// <returns>Array OrderResponse object</returns>
-        public async Task<OrderResponse[]> GetOrdersAsync(string pair, int limit = 20)
+        public async Task<OrderResponse[]> GetOrdersAsync(string pair)
+        {
+            return await _repository.GetOrders(pair);
+        }
+
+        /// <summary>
+        /// Get all order information Async
+        /// </summary>
+        /// <param name="pair">string of pair</param>
+        /// <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+        /// <returns>Array OrderResponse object</returns>
+        public async Task<OrderResponse[]> GetOrdersAsync(string pair, int limit = 500)
         {
             return await _repository.GetOrders(pair, limit);
+        }
+
+        /// <summary>
+        /// Get all order information Async
+        /// </summary>
+        /// <param name="pair">string of pair</param>
+        /// <param name="fromDate">from date</param>
+        /// <param name="toDate">to date</param>
+        /// <returns>Array OrderResponse object</returns>
+        public async Task<OrderResponse[]> GetOrdersAsync(string pair, DateTime? fromDate, DateTime? toDate)
+        {
+            return await _repository.GetOrders(pair, fromDate, toDate);
         }
 
         /// <summary>

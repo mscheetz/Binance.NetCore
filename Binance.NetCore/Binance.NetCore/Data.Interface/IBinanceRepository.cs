@@ -47,12 +47,6 @@ namespace Binance.NetCore.Data.Interface
         Task<Symbol[]> GetTradingPairDetails();
 
         /// <summary>
-        /// Get Transactions for account
-        /// </summary>
-        /// <returns>Collection of Transactions</returns>
-        Task<IEnumerable<Transaction>> GetTransactions();
-
-        /// <summary>
         /// Get account balance
         /// </summary>
         /// <returns>Account object</returns>
@@ -67,12 +61,28 @@ namespace Binance.NetCore.Data.Interface
         Task<OrderResponse> GetOrder(string symbol, long orderId);
 
         /// <summary>
-        /// Get all order information
+        /// Get most recent current user order information
         /// </summary>
         /// <param name="symbol">string of symbol</param>
-        /// <param name="limit">Int of orders count to return, default 20</param>
         /// <returns>Array OrderResponse object</returns>
-        Task<OrderResponse[]> GetOrders(string symbol, int limit = 20);
+        Task<OrderResponse[]> GetOrders(string symbol);
+
+        /// <summary>
+        /// Get all current user order information
+        /// </summary>
+        /// <param name="symbol">string of symbol</param>
+        /// <param name="limit">Int of orders count to return, default 500 / max 1000</param>
+        /// <returns>Array OrderResponse object</returns>
+        Task<OrderResponse[]> GetOrders(string symbol, int limit = 500);
+
+        /// <summary>
+        /// Get all current user order information
+        /// </summary>
+        /// <param name="symbol">string of symbol</param>
+        /// <param name="fromDate">from date</param>
+        /// <param name="toDate">to date</param>
+        /// <returns>Array OrderResponse object</returns>
+        Task<OrderResponse[]> GetOrders(string symbol, DateTime? fromDate, DateTime? toDate);
 
         /// <summary>
         /// Get all open orders
