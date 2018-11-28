@@ -16,6 +16,6 @@ namespace Binance.NetCore.Entities
         public OrderStatus status { get; set; }
         public TimeInForce timeInForce { get; set; }
         public OrderType type { get; set; }
-        public TradeType side { get; set; }
+        public Side side { get; set; }
     }
 }

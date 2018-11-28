@@ -361,15 +361,35 @@ namespace Binance.NetCore.Data
         /// <returns>TradeResponse object</returns>
         public async Task<TradeResponse> PostTrade(TradeParams tradeParams)
         {
-            var queryString = new List<string>
-            {
-                $"symbol={tradeParams.symbol}",
-                $"side={tradeParams.side}",
-                $"type={tradeParams.type}",
-                $"timeInForce={tradeParams.timeInForce}",
-                $"quantity={tradeParams.quantity}",
-                $"price={tradeParams.price}"
-            };
+            if (!TradeParamsValidator(tradeParams))
+                return null;
+
+            var queryString = new List<string>();
+
+            queryString.Add($"symbol={tradeParams.symbol}");
+            queryString.Add($"side={tradeParams.side}");
+            queryString.Add($"type={tradeParams.type}");
+
+            OrderType orderType = (OrderType)Enum.Parse(typeof(OrderType), tradeParams.type);
+            if ((orderType == OrderType.LIMIT || orderType == OrderType.STOP_LOSS_LIMIT 
+                || orderType == OrderType.TAKE_PROFIT_LIMIT) && string.IsNullOrEmpty(tradeParams.timeInForce))
+                tradeParams.timeInForce = TimeInForce.GTC.ToString();
+
+            if (!string.IsNullOrEmpty(tradeParams.timeInForce))
+                queryString.Add($"timeInForce={tradeParams.timeInForce}");
+
+            queryString.Add($"quantity={DecimalToString(tradeParams.quantity)}");
+
+            if (tradeParams.price > 0.0M)
+                queryString.Add($"price={DecimalToString(tradeParams.price)}");
+
+            if (tradeParams.stopPrice > 0.0M)
+                queryString.Add($"stopPrice={DecimalToString(tradeParams.stopPrice)}");
+
+            if (tradeParams.icebergQty > 0.0M)
+                queryString.Add($"iceburgQty={DecimalToString(tradeParams.icebergQty)}");
+
+            queryString.Add($"recvWindow=5000");
 
             string url = CreateUrl("/api/v3/order", true, queryString.ToArray(), true);
 
@@ -509,6 +529,61 @@ namespace Binance.NetCore.Data
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Get latest price for all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        public async Task<Ticker[]> GetTickers()
+        {
+            return await OnGetTicker(string.Empty);
+        }
+
+        /// <summary>
+        /// Get latest price for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <returns>A Ticker object</returns>
+        public async Task<Ticker> GetTicker(string pair)
+        {
+            var tickers = await OnGetTicker(pair);
+
+            return tickers[0];
+        }
+
+        /// <summary>
+        /// Get latest price for one or all trading pairs
+        /// </summary>
+        /// <returns>Array of Tickers</returns>
+        private async Task<Ticker[]> OnGetTicker(string pair)
+        {
+            var endpoint = "/api/v1/ticker/price";
+            var queryString = new Dictionary<string, object>();
+            queryString.Add("symbol", pair);
+
+            var url = string.IsNullOrEmpty(pair) ? CreateUrl(endpoint, false) : CreateUrl(endpoint, false, queryString);
+
+            try
+            {
+                Ticker[] response;
+                if (!string.IsNullOrEmpty(pair))
+                {
+                    var ticker = await _restRepo.GetApiStream<Ticker>(url);
+
+                    response = new Ticker[] { ticker };
+                }
+                else
+                {
+                    response = await _restRepo.GetApiStream<Ticker[]>(url);
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -876,7 +951,7 @@ namespace Binance.NetCore.Data
         {
             var url = string.Empty;
             if(testable)
-                apiPath = testApi ? $"{apiPath}/test" : string.Empty;
+                apiPath = testApi ? $"{apiPath}/test" : apiPath;
             if (!secure)
             {
                 url = baseUrl + $"{apiPath}";
@@ -927,6 +1002,58 @@ namespace Binance.NetCore.Data
             }
 
             return qsValues;
+        }
+
+        /// <summary>
+        /// Cultural neutral decimal converter
+        /// </summary>
+        /// <param name="decimalVal">Decimal to convert</param>
+        /// <returns>String of decimal</returns>
+        private string DecimalToString(decimal decimalVal)
+        {
+            var decimalString = decimalVal.ToString();
+
+            return decimalString.Replace(",", ".");
+        }
+
+        /// <summary>
+        /// Validate trade parameters
+        /// </summary>
+        /// <param name="tradeParams">TradeParams object to validate</param>
+        /// <returns>True if valid</returns>
+        private bool TradeParamsValidator(TradeParams tradeParams)
+        {
+            var errorMessage = string.Empty;
+            if (string.IsNullOrEmpty(tradeParams.symbol))
+                errorMessage = "Trading pair required.";
+
+            if (tradeParams.quantity == 0.0M)
+                errorMessage = "Quantity is required.";
+
+            if (string.IsNullOrEmpty(tradeParams.side))
+                errorMessage = "Trade side is required.";
+
+            if (string.IsNullOrEmpty(tradeParams.type))
+                errorMessage = "Trade Type is required.";
+
+            var orderType = (OrderType)Enum.Parse(typeof(OrderType), tradeParams.type);
+
+            if ((orderType == OrderType.LIMIT || orderType == OrderType.STOP_LOSS_LIMIT
+                || orderType == OrderType.TAKE_PROFIT_LIMIT || orderType == OrderType.LIMIT_MAKER)
+                && tradeParams.price == 0.0M)
+                    errorMessage = $"Price is required for {tradeParams.type} orders.";
+            
+            if ((orderType == OrderType.STOP_LOSS || orderType == OrderType.STOP_LOSS_LIMIT
+                || orderType == OrderType.TAKE_PROFIT || orderType == OrderType.TAKE_PROFIT_LIMIT)
+                && (tradeParams.stopPrice == 0.0M))
+            {
+                errorMessage = $"Stop price required for {tradeParams.type} orders";
+            }
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                throw new Exception(errorMessage);
+
+            return true;
         }
     }
 }

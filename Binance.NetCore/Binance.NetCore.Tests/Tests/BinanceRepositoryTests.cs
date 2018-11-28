@@ -84,6 +84,23 @@ namespace Binance.NetCore.Tests
         }
 
         [Fact]
+        public void GetTickerTest()
+        {
+            var pair = "XLMBTC";
+            var ticker = _repo.GetTicker(pair).Result;
+
+            Assert.NotNull(ticker);
+        }
+
+        [Fact]
+        public void GetTickersTest()
+        {
+            var tickers = _repo.GetTickers().Result;
+
+            Assert.NotNull(tickers);
+        }
+
+        [Fact]
         public void GetAccountTest()
         {
             var account = _repo.GetBalance().Result;
@@ -123,12 +140,29 @@ namespace Binance.NetCore.Tests
         {
             var tradeParams = new TradeParams
             {
-                price = 1000.00M,
-                quantity = 1M,
-                side = "BUY",
-                symbol = "BTCUSDT",
-                timeInForce = "GTC",
-                type = "limit"
+                price = 0.00001500M,
+                quantity = 1000,
+                side = Side.SELL.ToString(),
+                symbol = "TRXBTC",
+                type = OrderType.LIMIT.ToString()
+            };
+
+            var order = _repo.PostTrade(tradeParams).Result;
+
+            Assert.NotNull(order);
+        }
+
+        [Fact]
+        public void PostStopLossLimit()
+        {
+            var tradeParams = new TradeParams
+            {
+                price = 0.00001500M,
+                stopPrice = 0.00000150M,
+                quantity = 1000,
+                side = Side.SELL.ToString(),
+                symbol = "TRXBTC",
+                type = OrderType.STOP_LOSS_LIMIT.ToString()
             };
 
             var order = _repo.PostTrade(tradeParams).Result;
