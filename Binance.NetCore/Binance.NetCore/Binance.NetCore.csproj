@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,11 +7,11 @@
     <RepositoryUrl>https://github.com/mscheetz/Binance.NetCore</RepositoryUrl>
     <Copyright>2018 Matt Scheetz</Copyright>
     <Description>Api library for accessing the Binance exchange Api built on .Net Standard</Description>
-    <PackageReleaseNotes>Fixed unsecure endpoints</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated dependency</PackageReleaseNotes>
     <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
     <IsPackable>true</IsPackable>
-    <Version>1.5.6</Version>
-    <PackageLicenseUrl>https://github.com/mscheetz/Binance.NetCore/blob/master/LICENSE</PackageLicenseUrl>
+    <Version>1.5.7</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Binance.NetCore</PackageId>
     <Product>Binance.NetStd</Product>
   </PropertyGroup>
@@ -24,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="DateTimeHelpers" Version="1.3.2" />
     <PackageReference Include="FileRepository" Version="1.1.1" />
-    <PackageReference Include="RESTApiAccess" Version="1.2.2" />
+    <PackageReference Include="RESTApiAccess" Version="1.3.0" />
   </ItemGroup>
 
 </Project>
