@@ -120,14 +120,53 @@ namespace Binance.NetCore.Data.Interface
         Task<IEnumerable<Tick>> GetCrytpos();
 
         /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <returns>Array of Candlestick objects</returns>
+        Task<Candlestick[]> GetCandlestick(string pair, Interval interval);
+
+        /// <summary>
         /// Get Candlesticks for a symbol
         /// </summary>
         /// <param name="symbol">Trading symbol</param>
         /// <param name="interval">Time interval</param>
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
-        Task<Candlestick[]> GetCandlestick(string symbol, Interval interval, int limit = 500);
-        
+        Task<Candlestick[]> GetCandlestick(string symbol, Interval interval, int limit);
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="endDate">Last stick</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        Task<Candlestick[]> GetCandlestick(string pair, DateTime endDate, Interval interval, int limit);
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="startDate">1st stick</param>
+        /// <param name="endDate">Last stick</param>
+        /// <param name="interval">Time interval</param>
+        /// <returns>Array of Candlestick objects</returns>
+        Task<Candlestick[]> GetCandlestick(string pair, DateTime startDate, DateTime endDate, Interval interval);
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startTime">Time of 1st candlestick</param>
+        /// <param name="endTime">Time of last candlestick</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        Task<Candlestick[]> GetCandlestick(string pair, Interval interval, long startTime = 0, long endTime = 0, int limit = 500);
+
         /// <summary>
         /// Get 24hour ticker statistics
         /// </summary>

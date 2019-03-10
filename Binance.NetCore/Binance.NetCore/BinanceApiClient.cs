@@ -542,12 +542,64 @@ namespace Binance.NetCore
         /// </summary>
         /// <param name="pair">Trading pair</param>
         /// <param name="interval">Time interval</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public Candlestick[] GetCandlestick(string pair, Interval interval)
+        {
+            return _repository.GetCandlestick(pair, interval).Result;
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a pair
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="interval">Time interval</param>
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
-        public Candlestick[] GetCandlestick(string pair, Interval interval, int limit = 500)
+        public Candlestick[] GetCandlestick(string pair, Interval interval, int limit)
         {
             return _repository.GetCandlestick(pair, interval, limit).Result;
         }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="endDate">Last stick</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public Candlestick[] GetCandlestick(string pair, Interval interval, DateTime endDate, int limit)
+        {
+            return _repository.GetCandlestick(pair, endDate, interval, limit).Result;
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startDate">1st stick</param>
+        /// <param name="endDate">Last stick</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public Candlestick[] GetCandlestick(string pair, Interval interval, DateTime startDate, DateTime endDate)
+        {
+            return _repository.GetCandlestick(pair, startDate, endDate, interval).Result;
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startTime">Time of 1st candlestick</param>
+        /// <param name="endTime">Time of last candlestick</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public Candlestick[] GetCandlestick(string pair, Interval interval, long startTime = 0, long endTime = 0, int limit = 500)
+        {
+            return _repository.GetCandlestick(pair, interval, startTime, endTime, limit).Result;
+        }
+
 
         /// <summary>
         /// Get 24hour ticker statistics
@@ -1099,11 +1151,62 @@ namespace Binance.NetCore
         /// </summary>
         /// <param name="pair">Trading pair</param>
         /// <param name="interval">Time interval</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestickAsync(string pair, Interval interval)
+        {
+            return await _repository.GetCandlestick(pair, interval);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a pair Async
+        /// </summary>
+        /// <param name="pair">Trading pair</param>
+        /// <param name="interval">Time interval</param>
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
-        public async Task<Candlestick[]> GetCandlestickAsync(string pair, Interval interval, int limit = 500)
+        public async Task<Candlestick[]> GetCandlestickAsync(string pair, Interval interval, int limit)
         {
             return await _repository.GetCandlestick(pair, interval, limit);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="endDate">Last stick</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestickAsync(string pair, Interval interval, DateTime endDate, int limit)
+        {
+            return await _repository.GetCandlestick(pair, endDate, interval, limit);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startDate">1st stick</param>
+        /// <param name="endDate">Last stick</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestickAsync(string pair, Interval interval, DateTime startDate, DateTime endDate)
+        {
+            return await _repository.GetCandlestick(pair, startDate, endDate, interval);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startTime">Time of 1st candlestick</param>
+        /// <param name="endTime">Time of last candlestick</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestickAsync(string pair, Interval interval, long startTime = 0, long endTime = 0, int limit = 500)
+        {
+            return await _repository.GetCandlestick(pair, interval, startTime, endTime, limit);
         }
 
         /// <summary>

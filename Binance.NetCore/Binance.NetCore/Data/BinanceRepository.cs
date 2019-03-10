@@ -441,21 +441,88 @@ namespace Binance.NetCore.Data
         }
 
         /// <summary>
-        /// Get Candlesticks for a symbol
+        /// Get Candlesticks for a trading pair
         /// </summary>
-        /// <param name="symbol">Trading symbol</param>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval)
+        {
+            return await GetCandlestick(pair: pair, interval: interval);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
         /// <param name="interval">Time interval</param>
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
-        public async Task<Candlestick[]> GetCandlestick(string symbol, Interval interval, int limit = 500)
+        public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval, int limit)
+        {
+            return await GetCandlestick(pair: pair, interval: interval, limit: limit);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="endDate">Last stick</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestick(string pair, DateTime endDate, Interval interval, int limit)
+        {
+            var endTime = _dtHelper.LocalToUnixTime(endDate);
+
+            return await GetCandlestick(pair: pair, interval: interval, endTime: endTime, limit: limit);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="startDate">1st stick</param>
+        /// <param name="endDate">Last stick</param>
+        /// <param name="interval">Time interval</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestick(string pair, DateTime startDate, DateTime endDate, Interval interval)
+        {
+            var startTime = _dtHelper.LocalToUnixTime(startDate);
+            var endTime = _dtHelper.LocalToUnixTime(endDate);
+
+            return await GetCandlestick(pair, interval, startTime, endTime);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startTime">Time of 1st candlestick</param>
+        /// <param name="endTime">Time of last candlestick</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval, long startTime = 0, long endTime = 0, int limit = 500)
         {
             var intervalDescription = EnumHelper.GetEnumDescription((Interval)interval);
 
             var queryString = new List<string>
             {
-                $"symbol={symbol}",
-                $"interval={intervalDescription}",
-                $"limit={limit.ToString()}"
+                $"symbol={pair}",
+                $"interval={intervalDescription}"
+            };
+            if(startTime > 0)
+            {
+                queryString.Add($"startTime={startTime.ToString()}");
+            }
+            if (endTime > 0)
+            {
+                queryString.Add($"endTime={endTime.ToString()}");
+            }
+            if (limit != 500 && limit < 1000)
+            { 
+                queryString.Add($"limit={limit.ToString()}");
             };
 
             string url = CreateUrl($"/api/v1/klines", false, queryString.ToArray());
