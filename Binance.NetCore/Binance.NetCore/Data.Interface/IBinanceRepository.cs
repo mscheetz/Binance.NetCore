@@ -140,6 +140,16 @@ namespace Binance.NetCore.Data.Interface
         /// Get Candlesticks for a trading pair
         /// </summary>
         /// <param name="pair">Trading symbol</param>
+        /// <param name="endTime">Last stick</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        Task<Candlestick[]> GetCandlestick(string pair, long endTime, Interval interval, int limit);
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
         /// <param name="endDate">Last stick</param>
         /// <param name="interval">Time interval</param>
         /// <param name="limit">Time limit</param>
@@ -165,7 +175,7 @@ namespace Binance.NetCore.Data.Interface
         /// <param name="endTime">Time of last candlestick</param>
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
-        Task<Candlestick[]> GetCandlestick(string pair, Interval interval, long startTime = 0, long endTime = 0, int limit = 500);
+        Task<Candlestick[]> GetCandlestick(string pair, Interval interval, long startTime, long endTime);
 
         /// <summary>
         /// Get 24hour ticker statistics

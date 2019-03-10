@@ -136,6 +136,19 @@ namespace Binance.NetCore.Tests
         }
 
         [Fact]
+        public void GetBinanceCandlestick_TestII()
+        {
+            var pair = "BTCUSDT";
+            var interval = Interval.OneD;
+            var start = new DateTime(2017, 12, 27);
+            var end = new DateTime(2018, 12, 31);
+
+            var candleSticks = _repo.GetCandlestick(pair, start, end, interval).Result.ToList();
+
+            Assert.True(candleSticks.Count > 0);
+        }
+
+        [Fact]
         public void PostTrade()
         {
             var tradeParams = new TradeParams

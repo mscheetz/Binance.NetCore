@@ -448,7 +448,7 @@ namespace Binance.NetCore.Data
         /// <returns>Array of Candlestick objects</returns>
         public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval)
         {
-            return await GetCandlestick(pair: pair, interval: interval);
+            return await OnGetCandlestick(pair: pair, interval: interval, startTime: 0, endTime: 0, limit: 0);
         }
 
         /// <summary>
@@ -460,7 +460,20 @@ namespace Binance.NetCore.Data
         /// <returns>Array of Candlestick objects</returns>
         public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval, int limit)
         {
-            return await GetCandlestick(pair: pair, interval: interval, limit: limit);
+            return await OnGetCandlestick(pair: pair, interval: interval, startTime: 0, endTime: 0, limit: limit);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="endTime">Last stick</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="limit">Time limit</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestick(string pair, long endTime, Interval interval, int limit)
+        {
+            return await OnGetCandlestick(pair: pair, interval: interval, startTime: 0, endTime: endTime, limit: limit);
         }
 
         /// <summary>
@@ -475,7 +488,7 @@ namespace Binance.NetCore.Data
         {
             var endTime = _dtHelper.LocalToUnixTime(endDate);
 
-            return await GetCandlestick(pair: pair, interval: interval, endTime: endTime, limit: limit);
+            return await OnGetCandlestick(pair: pair, interval: interval, startTime: 0, endTime: endTime, limit: limit);
         }
 
         /// <summary>
@@ -491,7 +504,20 @@ namespace Binance.NetCore.Data
             var startTime = _dtHelper.LocalToUnixTime(startDate);
             var endTime = _dtHelper.LocalToUnixTime(endDate);
 
-            return await GetCandlestick(pair, interval, startTime, endTime);
+            return await OnGetCandlestick(pair, interval, startTime, endTime, limit: 0);
+        }
+
+        /// <summary>
+        /// Get Candlesticks for a trading pair
+        /// </summary>
+        /// <param name="pair">Trading symbol</param>
+        /// <param name="interval">Time interval</param>
+        /// <param name="startTime">Time of 1st candlestick</param>
+        /// <param name="endTime">Time of last candlestick</param>
+        /// <returns>Array of Candlestick objects</returns>
+        public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval, long startTime, long endTime)
+        {
+            return await OnGetCandlestick(pair, interval, startTime, endTime, limit: 0);
         }
 
         /// <summary>
@@ -503,7 +529,7 @@ namespace Binance.NetCore.Data
         /// <param name="endTime">Time of last candlestick</param>
         /// <param name="limit">Time limit</param>
         /// <returns>Array of Candlestick objects</returns>
-        public async Task<Candlestick[]> GetCandlestick(string pair, Interval interval, long startTime = 0, long endTime = 0, int limit = 500)
+        private async Task<Candlestick[]> OnGetCandlestick(string pair, Interval interval, long startTime, long endTime, int limit)
         {
             var intervalDescription = EnumHelper.GetEnumDescription((Interval)interval);
 
@@ -520,10 +546,10 @@ namespace Binance.NetCore.Data
             {
                 queryString.Add($"endTime={endTime.ToString()}");
             }
-            if (limit != 500 && limit < 1000)
+            if (limit != 500 && limit < 1000 && limit > 0)
             { 
                 queryString.Add($"limit={limit.ToString()}");
-            };
+            }
 
             string url = CreateUrl($"/api/v1/klines", false, queryString.ToArray());
 
