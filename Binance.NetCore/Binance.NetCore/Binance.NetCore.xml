@@ -282,12 +282,51 @@
             </summary>
             <returns>Collection of BinanceTick objects</returns>
         </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval)">
+            <summary>
+            Get Candlesticks for a pair
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="interval">Time interval</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
             <summary>
             Get Candlesticks for a pair
             </summary>
             <param name="pair">Trading pair</param>
             <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.DateTime,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="endDate">Last stick</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.DateTime,System.DateTime)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="startDate">1st stick</param>
+            <param name="endDate">Last stick</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="startTime">Time of 1st candlestick</param>
+            <param name="endTime">Time of last candlestick</param>
             <param name="limit">Time limit</param>
             <returns>Array of Candlestick objects</returns>
         </member>
@@ -620,12 +659,51 @@
             </summary>
             <returns>Collection of BinanceTick objects</returns>
         </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval)">
+            <summary>
+            Get Candlesticks for a pair Async
+            </summary>
+            <param name="pair">Trading pair</param>
+            <param name="interval">Time interval</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
         <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
             <summary>
             Get Candlesticks for a pair Async
             </summary>
             <param name="pair">Trading pair</param>
             <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval,System.DateTime,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="endDate">Last stick</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval,System.DateTime,System.DateTime)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="startDate">1st stick</param>
+            <param name="endDate">Last stick</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.BinanceApiClient.GetCandlestickAsync(System.String,Binance.NetCore.Entities.Interval,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="startTime">Time of 1st candlestick</param>
+            <param name="endTime">Time of last candlestick</param>
             <param name="limit">Time limit</param>
             <returns>Array of Candlestick objects</returns>
         </member>
@@ -872,12 +950,51 @@
             </summary>
             <returns>Collection of BinanceTick objects</returns>
         </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
         <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
             <summary>
             Get Candlesticks for a symbol
             </summary>
             <param name="symbol">Trading symbol</param>
             <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCandlestick(System.String,System.DateTime,Binance.NetCore.Entities.Interval,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="endDate">Last stick</param>
+            <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCandlestick(System.String,System.DateTime,System.DateTime,Binance.NetCore.Entities.Interval)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="startDate">1st stick</param>
+            <param name="endDate">Last stick</param>
+            <param name="interval">Time interval</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.Interface.IBinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="startTime">Time of 1st candlestick</param>
+            <param name="endTime">Time of last candlestick</param>
             <param name="limit">Time limit</param>
             <returns>Array of Candlestick objects</returns>
         </member>
@@ -1167,12 +1284,51 @@
             </summary>
             <returns>Collection of BinanceTick objects</returns>
         </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
         <member name="M:Binance.NetCore.Data.BinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int32)">
             <summary>
-            Get Candlesticks for a symbol
+            Get Candlesticks for a trading pair
             </summary>
-            <param name="symbol">Trading symbol</param>
+            <param name="pair">Trading symbol</param>
             <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetCandlestick(System.String,System.DateTime,Binance.NetCore.Entities.Interval,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="endDate">Last stick</param>
+            <param name="interval">Time interval</param>
+            <param name="limit">Time limit</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetCandlestick(System.String,System.DateTime,System.DateTime,Binance.NetCore.Entities.Interval)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="startDate">1st stick</param>
+            <param name="endDate">Last stick</param>
+            <param name="interval">Time interval</param>
+            <returns>Array of Candlestick objects</returns>
+        </member>
+        <member name="M:Binance.NetCore.Data.BinanceRepository.GetCandlestick(System.String,Binance.NetCore.Entities.Interval,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Get Candlesticks for a trading pair
+            </summary>
+            <param name="pair">Trading symbol</param>
+            <param name="interval">Time interval</param>
+            <param name="startTime">Time of 1st candlestick</param>
+            <param name="endTime">Time of last candlestick</param>
             <param name="limit">Time limit</param>
             <returns>Array of Candlestick objects</returns>
         </member>

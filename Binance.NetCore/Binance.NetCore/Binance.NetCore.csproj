@@ -7,13 +7,14 @@
     <RepositoryUrl>https://github.com/mscheetz/Binance.NetCore</RepositoryUrl>
     <Copyright>2018 Matt Scheetz</Copyright>
     <Description>Api library for accessing the Binance exchange Api built on .Net Standard</Description>
-    <PackageReleaseNotes>Updated dependency</PackageReleaseNotes>
+    <PackageReleaseNotes>New candlestick endpoints</PackageReleaseNotes>
     <PackageTags>binance bitcoin cryptocurrency exchange trading api net core</PackageTags>
     <IsPackable>true</IsPackable>
-    <Version>1.5.7</Version>
+    <Version>1.6.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>Binance.NetCore</PackageId>
     <Product>Binance.NetStd</Product>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
