@@ -486,7 +486,7 @@ namespace Binance.NetCore.Data
         /// <returns>Array of Candlestick objects</returns>
         public async Task<Candlestick[]> GetCandlestick(string pair, DateTime endDate, Interval interval, int limit)
         {
-            var endTime = _dtHelper.LocalToUnixTime(endDate);
+            var endTime = _dtHelper.LocalTimetoUnixTimeMilliseconds(endDate);
 
             return await OnGetCandlestick(pair: pair, interval: interval, startTime: 0, endTime: endTime, limit: limit);
         }
@@ -501,8 +501,8 @@ namespace Binance.NetCore.Data
         /// <returns>Array of Candlestick objects</returns>
         public async Task<Candlestick[]> GetCandlestick(string pair, DateTime startDate, DateTime endDate, Interval interval)
         {
-            var startTime = _dtHelper.LocalToUnixTime(startDate);
-            var endTime = _dtHelper.LocalToUnixTime(endDate);
+            var startTime = _dtHelper.LocalTimetoUnixTimeMilliseconds(startDate);
+            var endTime = _dtHelper.LocalTimetoUnixTimeMilliseconds(endDate);
 
             return await OnGetCandlestick(pair, interval, startTime, endTime, limit: 0);
         }

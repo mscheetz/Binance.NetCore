@@ -3,6 +3,7 @@ using Binance.NetCore.Data.Interface;
 using Binance.NetCore.Entities;
 using FileRepository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -32,8 +33,8 @@ namespace Binance.NetCore.Tests
             }
             else
             {
-                _repo = new BinanceRepository();
             }
+                _repo = new BinanceRepository();
         }
 
         public void Dispose()
@@ -138,12 +139,35 @@ namespace Binance.NetCore.Tests
         [Fact]
         public void GetBinanceCandlestick_TestII()
         {
-            var pair = "BTCUSDT";
+            var pair = "GASBTC";
             var interval = Interval.OneD;
-            var start = new DateTime(2017, 12, 27);
-            var end = new DateTime(2018, 12, 31);
 
-            var candleSticks = _repo.GetCandlestick(pair, start, end, interval).Result.ToList();
+            var candleSticks = _repo.GetCandlestick(pair, interval).Result.ToList();
+
+            IFileRepository repo = new FileRepository.FileRepository();
+
+            var dictionary = new Dictionary<DateTime, decimal>();
+            var dtHelper = new DateTimeHelpers.DateTimeHelper();
+            foreach(var stick in candleSticks)
+            {
+                var date = dtHelper.UnixTimeToUTC(stick.closeTime);
+                dictionary.Add(date, stick.close);
+            }
+
+            repo.UpdateFile(dictionary, $"{pair}.json");
+
+            Assert.True(candleSticks.Count > 0);
+        }
+
+        [Fact]
+        public void GetBinanceCandlestick_TestIII()
+        {
+            var pair = "NEOBTC";
+            var interval = Interval.OneD;
+            var startDate = new DateTime(2018, 8, 10);
+            var endDate = new DateTime(2018, 8, 20);
+
+            var candleSticks = _repo.GetCandlestick(pair, startDate, endDate, interval).Result.ToList();
 
             Assert.True(candleSticks.Count > 0);
         }
